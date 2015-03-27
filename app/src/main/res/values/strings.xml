@@ -7,5 +7,5 @@
     <string name="list_item_resto_name">Nom du restaurant</string>
     <string name="list_item_resto_type">Type du restaurant</string>
 
-    <string name="disabled_type_title">Votre type d\'handicap :</string>
+    <string name="disabled_type_title">Votre type d\'handicap</string>
 </resources>
