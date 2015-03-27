@@ -12,5 +12,11 @@ public class Restaurant {
 
     private ArrayList<Criterion> criterions;
 
-
+    public Restaurant(String name, String description, String category, String address, ArrayList<Criterion> criterions) {
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.address = address;
+        this.criterions = criterions;
+    }
 }

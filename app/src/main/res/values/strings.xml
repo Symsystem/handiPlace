@@ -8,4 +8,5 @@
     <string name="list_item_resto_type">Type du restaurant</string>
 
     <string name="disabled_type_title">Votre type d\'handicap</string>
+    <string name="title_activity_resto_list">RestoListActivity</string>
 </resources>
