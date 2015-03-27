@@ -1,4 +1,4 @@
-package com.hackathon.handiplace;
+package com.hackathon.handiplace.classes;
 
 import java.util.ArrayList;
 

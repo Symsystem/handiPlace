@@ -1,4 +1,4 @@
-package com.hackathon.handiplace;
+package com.hackathon.handiplace.classes;
 
 
 public class Criterion {
