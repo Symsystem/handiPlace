@@ -13,7 +13,6 @@
         android:text="@string/disabled_type_title"
         android:id="@+id/disabledTypeTitle"
         android:layout_margin="20dp"
-        android:gravity="center_horizontal"
         android:textSize="20sp"
         android:textColor="@android:color/white"/>
 
