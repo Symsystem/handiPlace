@@ -5,13 +5,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 
 import com.hackathon.handiplace.R;
+
+import butterknife.InjectView;
 
 
 public class MenuActivity extends ActionBarActivity {
 
     Toolbar mToolbar;
+
+    @InjectView(R.id.restoLocationButton) Button mRestoLocation;
+    @InjectView(R.id.restoListButton) Button mRestoList;
+    @InjectView(R.id.restoFavorisButton) Button mRestoFavoris;
+    @InjectView(R.id.typeHandicapButton) Button mTypeHandicap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
