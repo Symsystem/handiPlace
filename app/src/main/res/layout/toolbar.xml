@@ -5,15 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/primary"
-    app:popupTheme="@style/Theme.AppCompat.Light">
+    app:popupTheme="@style/Theme.AppCompat.Light"
+    app:theme="@style/Theme.AppCompat"
+    >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/disabled_type_title"
-        android:id="@+id/disabledTypeTitle"
-        android:layout_margin="20dp"
-        android:textSize="20sp"
-        android:textColor="@android:color/white"/>
+
 
 </android.support.v7.widget.Toolbar>

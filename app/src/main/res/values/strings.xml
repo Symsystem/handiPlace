@@ -9,4 +9,9 @@
 
     <string name="disabled_type_title">Votre type d\'handicap</string>
     <string name="title_activity_resto_list">RestoListActivity</string>
+
+    <string name="resto_location_button">Aux alentours</string>
+    <string name="resto_list_button">Liste restaurants</string>
+    <string name="resto_favoris_button">Mes restaurants</string>
+    <string name="type_handicap_button">Mon handicap</string>
 </resources>
