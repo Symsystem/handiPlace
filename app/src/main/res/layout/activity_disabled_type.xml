@@ -9,49 +9,80 @@
         layout="@layout/toolbar"
         android:id="@+id/toolbar" />
 
-    <GridLayout
-        android:id="@+id/GridLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:rowCount="3"
-        android:orientation="horizontal"
-        tools:context=".GridXMLActivity">
 
-        <ImageButton
-            android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/disabled_type_1"
-            android:layout_column="0"
-            android:layout_row="0"
-            android:layout_gravity="fill"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_weight="1"
+            android:gravity="center_vertical">
 
-        <ImageButton
-            android:layout_width="wrap_content"
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/disabled_type_1"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_weight="1"
+
+                />
+
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/disabled_type_2"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/disabled_type_2"
-            android:layout_column="1"
-            android:layout_row="0"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_weight="1"
+            android:gravity="center_vertical">
 
-        <ImageButton
-            android:layout_width="wrap_content"
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/disabled_type_3"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_weight="1"/>
+
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/disabled_type_4"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/disabled_type_3"
-            android:layout_column="0"
-            android:layout_row="1"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_weight="1"
+            android:gravity="center_vertical">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/disabled_type_4"
-            android:layout_column="1"
-            android:layout_row="1"
-            android:src="@mipmap/ic_launcher"/>
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/disabled_type_5"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_weight="1"/>
 
-    </GridLayout>
-
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/disabled_type_6"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_weight="1"/>
+        </LinearLayout>
     </LinearLayout>
+
+</LinearLayout>
 
