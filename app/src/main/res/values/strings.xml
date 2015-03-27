@@ -4,4 +4,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_disabled_type">DisabledTypeActivity</string>
+
+    <string name="disabled_type_title">Votre type d'handicap :</string>
 </resources>
