@@ -4,4 +4,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_disabled_type">DisabledTypeActivity</string>
+    <string name="list_item_resto_name">Nom du restaurant</string>
+    <string name="list_item_resto_type">Type du restaurant</string>
 </resources>

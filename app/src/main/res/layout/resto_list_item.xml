@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/resto_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/list_item_resto_name"
+            android:textSize="18sp"
+            />
+
+        <TextView
+            android:id="@+id/resto_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/resto_name"
+            tools:text="@string/list_item_resto_type"
+            android:textSize="12sp"
+            />
+
+        <TextView
+            android:id="@+id/resto_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/resto_name"
+            android:layout_alignParentRight="true"
+            tools:text="{icon-star} {icon-star} {icon-star}"
+            android:textSize="12sp"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>
