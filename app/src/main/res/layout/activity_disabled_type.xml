@@ -26,17 +26,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/disabled_type_1"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@drawable/Disabled_Icon"
                     android:layout_weight="1"
 
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:adjustViewBounds="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:scaleType="fitCenter"
                 />
 
             <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/disabled_type_2"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_weight="1"/>
+                    android:src="@drawable/NotTotallyDisabled"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:adjustViewBounds="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:scaleType="fitCenter"/>
         </LinearLayout>
 
         <LinearLayout
@@ -50,15 +62,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/disabled_type_3"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_weight="1"/>
+                    android:src="@drawable/Blind_Icon"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:scaleType="fitCenter"/>
 
             <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/disabled_type_4"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_weight="1"/>
+                    android:src="@drawable/NotTotallyBlind_Icon"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:adjustViewBounds="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:scaleType="fitCenter"/>
         </LinearLayout>
 
         <LinearLayout
@@ -72,15 +96,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/disabled_type_5"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_weight="1"/>
+                    android:src="@drawable/Deaf_Icon"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:scaleType="fitCenter"/>
 
             <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/disabled_type_6"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_weight="1"/>
+                    android:src="@drawable/NotTotallyDeaf_Icon"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:scaleType="fitCenter"/>
         </LinearLayout>
     </LinearLayout>
 
