@@ -34,6 +34,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
                     android:scaleType="fitCenter"
+                    android:background="?android:attr/background"
                 />
 
             <ImageButton
@@ -47,7 +48,9 @@
                     android:adjustViewBounds="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="fitCenter"
+                    android:background="?android:attr/background"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -68,7 +71,9 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="fitCenter"
+                    android:background="?android:attr/background"
+                />
 
             <ImageButton
                     android:layout_width="wrap_content"
@@ -81,7 +86,9 @@
                     android:adjustViewBounds="true"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="10dp"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="fitCenter"
+                    android:background="?android:attr/background"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -102,7 +109,9 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="10dp"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="fitCenter"
+                    android:background="?android:attr/background"
+                />
 
             <ImageButton
                     android:layout_width="wrap_content"
@@ -115,7 +124,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="fitCenter"
+                    android:background="?android:attr/background"
+                />
         </LinearLayout>
     </LinearLayout>
 
