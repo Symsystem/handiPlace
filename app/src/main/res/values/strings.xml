@@ -16,5 +16,6 @@
     <string name="type_handicap_button">Mon handicap</string>
 
     <string name="no_data_resto_list">No data to display</string>
+    <string name="title_activity_opinion">OpinionActivity</string>
 
 </resources>
