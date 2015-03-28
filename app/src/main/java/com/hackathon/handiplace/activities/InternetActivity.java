@@ -60,9 +60,13 @@ public class InternetActivity extends ActionBarActivity {
     @OnClick (R.id.cellButton)
     public void clickCellButton(){
 
-        Intent intent=new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
+        /*Intent intent=new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
         ComponentName cn = new ComponentName("com.android.phone","com.android.phone.Settings");
         intent.setComponent(cn);
+        startActivity(intent);*/
+        Intent intent = new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setAction(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
         startActivity(intent);
     }
 

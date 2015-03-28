@@ -3,12 +3,15 @@ package com.hackathon.handiplace.classes;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.activities.InternetActivity;
@@ -21,6 +24,8 @@ public class Utils {
     public static String BASE_URL = "http://hackathon.bewweb.be/";
 
     public static HashMap<Integer, Integer> idHandicap = new HashMap<Integer, Integer>();
+
+
 
     static{
         idHandicap.put(1, 0);
@@ -83,13 +88,58 @@ public class Utils {
 
     }
 
-    public static Position getLocation(Context context){
-        LocationManager locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+    public static void updateLocation(Context context){
+        /*LocationManager locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        return new Position(location.getLatitude(), location.getLongitude());
+        return new Position(location.getLatitude(), location.getLongitude());*/
+            LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            // Define a listener that responds to location updates
+            LocationListener locationListener = new LocationListener() {
+                public void onLocationChanged(Location location) {
+                    // Called when a new location is found by the network location provider.
+                    Log.d("bwb", "changed Loc : " + location.getLongitude() + ":" + location.getLatitude());
+                    HandiPlaceApplication.currentPosition.setLatitude(location.getLatitude());
+                    HandiPlaceApplication.currentPosition.setLatitude(location.getLongitude());
+                }
+
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
+
+                public void onProviderEnabled(String provider) {
+                }
+
+                public void onProviderDisabled(String provider) {
+                }
+            };
+
+            // getting GPS status
+            Boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+            // check if GPS enabled
+            if (isGPSEnabled) {
+
+                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+                if (location != null) {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                    Log.d("bwb", "changed Loc : " + location.getLongitude() + ":" + location.getLatitude());
+                    HandiPlaceApplication.currentPosition.setLatitude(location.getLatitude());
+                    HandiPlaceApplication.currentPosition.setLatitude(location.getLongitude());
+
+                } else {
+                    location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+                    if (location != null) {
+                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+                        Log.d("bwb", "changed Loc : " + location.getLongitude() + ":" + location.getLatitude());
+                        HandiPlaceApplication.currentPosition.setLatitude(location.getLatitude());
+                        HandiPlaceApplication.currentPosition.setLatitude(location.getLongitude());
+                    }
+                }
+            }
     }
 
-    public static Position checkConnectionsReturnLocation (Context context){
+    public static void checkConnectionsLocation (Context context){
         if(!Utils.isNetworkAvailable(context))
         {
             Intent intent = new Intent(context, InternetActivity.class);
@@ -97,21 +147,7 @@ public class Utils {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             context.startActivity(intent);
         }
-
-        Position pos = new Position(0, 0);
-        if(!Utils.isLocationEnabled(context) && !HandiPlaceApplication.isLocated){
-            Intent intent = new Intent(context, LocationActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            context.startActivity(intent);
-        }
-        else if(!HandiPlaceApplication.isLocated){
-            pos = getLocation(context);
-            if(pos != null){
-                HandiPlaceApplication.isLocated = true;
-            }
-        }
-        return pos;
+        updateLocation(context);
     }
 
 
