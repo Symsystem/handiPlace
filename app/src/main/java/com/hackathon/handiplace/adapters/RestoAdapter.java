@@ -67,7 +67,14 @@ public class RestoAdapter extends ArrayAdapter<Restaurant> {
     }
 
     private String calculRate(int position) {
-        return "{fa-star}{fa-star}{fa-star}";
+
+        int numStars = restaurants.get(position).getRating() / 2;
+        String stars = new String();
+
+        for(int i = 0; i<numStars; i++){
+               stars += "{fa-star}";
+        }
+        return stars;
     }
 
     private static class ViewHolder {

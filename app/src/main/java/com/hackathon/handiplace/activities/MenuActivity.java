@@ -7,7 +7,6 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -63,27 +62,7 @@ public class MenuActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        if(!Utils.isNetworkAvailable(this))
-        {
-            Log.d("Ceci n'est pas normal", "");
-            Intent intent = new Intent(MenuActivity.this, InternetActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-
-        if(!Utils.isLocationEnabled(this) && !HandiPlaceApplication.isLocated){
-            Intent intent = new Intent(MenuActivity.this, LocationActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-        else if(!HandiPlaceApplication.isLocated){
-            mPosition = Utils.getLocation(this);
-            if(mPosition != null){
-                HandiPlaceApplication.isLocated = true;
-            }
-        }
+        mPosition = Utils.checkConnectionsReturnLocation(this);
 
         if(!HandiPlaceApplication.user.isConnected()) {
             login();
@@ -191,13 +170,7 @@ public class MenuActivity extends ActionBarActivity {
 
     @OnClick (R.id.restoLocationButton)
     public void startRestLocationActivity(View view){
-        // if(mPosition == null){
-        //     Toast.makeText(this, "Location pas encore définie...", Toast.LENGTH_SHORT).show();
-        // }
 
-        // else {
-            // TODO
-            // String url = Config.BASE_URL + "api/places/" + mPosition.getLongitude() + "/longitudes/ " + mPosition.getLatitude() + "/latitude.json";
             String url = Utils.BASE_URL + "api/places/" + 50 + "/longitudes/" + 4 + "/latitude.json";
 
             StringRequest request = new StringRequest(url, new Response.Listener<String>() {
@@ -223,7 +196,7 @@ public class MenuActivity extends ActionBarActivity {
                         }
 
                         Intent intent = new Intent(MenuActivity.this, RestoListActivity.class);
-                        intent.putExtra("restos", restaurants);
+                        intent.putExtra("restos",restaurants);
                         startActivity(intent);
 
                     } catch (JSONException e) {
@@ -241,13 +214,13 @@ public class MenuActivity extends ActionBarActivity {
             RequestQueue queue = Volley.newRequestQueue(MenuActivity.this, new OkHttpStack());
             queue.add(request);
 
-        // }
 
 
     }
 
     @OnClick (R.id.typeHandicapButton)
     public void startDisabledTypeActivity(View view){
+        Utils.checkConnectionsReturnLocation(this);
         Intent intent = new Intent(this, DisabledTypeActivity.class);
         startActivity(intent);
     }

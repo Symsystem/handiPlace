@@ -1,6 +1,7 @@
 package com.hackathon.handiplace.classes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
@@ -8,6 +9,10 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
+
+import com.hackathon.handiplace.HandiPlaceApplication;
+import com.hackathon.handiplace.activities.InternetActivity;
+import com.hackathon.handiplace.activities.LocationActivity;
 
 import java.util.HashMap;
 
@@ -84,6 +89,30 @@ public class Utils {
         return new Position(location.getLatitude(), location.getLongitude());
     }
 
+    public static Position checkConnectionsReturnLocation (Context context){
+        if(!Utils.isNetworkAvailable(context))
+        {
+            Intent intent = new Intent(context, InternetActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            context.startActivity(intent);
+        }
+
+        Position pos = new Position(0, 0);
+        if(!Utils.isLocationEnabled(context) && !HandiPlaceApplication.isLocated){
+            Intent intent = new Intent(context, LocationActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            context.startActivity(intent);
+        }
+        else if(!HandiPlaceApplication.isLocated){
+            pos = getLocation(context);
+            if(pos != null){
+                HandiPlaceApplication.isLocated = true;
+            }
+        }
+        return pos;
+    }
 
 
 }
