@@ -7,6 +7,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.hackathon.handiplace.R;
+import com.hackathon.handiplace.classes.Position;
 import com.hackathon.handiplace.request.GPSTracker;
 
 import butterknife.ButterKnife;
@@ -42,10 +44,10 @@ public class MenuActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        configureLocation();
+        //Position currentPosition = getCurrentLocation();
     }
 
-    private void configureLocation() {
+    private Position getCurrentLocation() {
         // Acquire a reference to the system Location Manager
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -53,7 +55,11 @@ public class MenuActivity extends ActionBarActivity {
         GPSTracker locationListener = new GPSTracker();
 
         // Register the listener with the Location Manager to receive location updates
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000L, 500.0f, locationListener);
+
+        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        return new Position(location.getLatitude(), location.getLongitude());
     }
 
     @OnClick (R.id.restoLocationButton)
