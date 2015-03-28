@@ -49,10 +49,21 @@ public class RestoAdapter extends ArrayAdapter<Restaurant> {
         holder.name.setText(restaurant.getName());
         holder.category.setText(restaurant.getCategory());
         holder.rating.setText(calculRate(position));
-        holder.km.setText(restaurant.getKilometers()+ "km");
+
+
+        double dis = round(restaurant.getKilometers(), 1);
+        holder.km.setText( dis + "km");
 
         return convertView;
 
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 
     private String calculRate(int position) {
