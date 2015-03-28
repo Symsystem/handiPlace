@@ -1,5 +1,6 @@
 package com.hackathon.handiplace.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,11 +17,17 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.hackathon.handiplace.R;
+import com.hackathon.handiplace.classes.Config;
 import com.hackathon.handiplace.classes.Position;
 import com.hackathon.handiplace.request.PermissionGPS;
+import com.hackathon.handiplace.request.PostRequest;
 
 import org.apache.http.util.ExceptionUtils;
+import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -64,6 +71,57 @@ public class MenuActivity extends ActionBarActivity {
         WifiManager manager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         WifiInfo info = manager.getConnectionInfo();
         macAddress = info.getMacAddress();
+
+        String URL = Config.BASE_URL + "users/" + macAddress;
+        StringRequest request = new StringRequest(URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                try {
+
+                    JSONObject userJson = new JSONObject(s);
+
+                    if (userJson.has("Message")) {
+
+                        String message = userJson.getString("Message");
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
+                        builder.setTitle("Erreur");
+                        builder.setMessage(message);
+                        builder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+
+                    } else {
+
+                        int id = Integer.parseInt((String) userJson.get("Id"));
+                        String name = (String) userJson.get("Nom");
+                        String nickname = (String) userJson.get("Prenom");
+                        String email = (String) userJson.get("Email");
+                        String gsm = (String) userJson.get("Gsm");
+                        int state = Integer.parseInt((String) userJson.get("Etat"));
+
+                        App.user = new User(id, nickname, name, email, gsm, state);
+                        Hawk.put("User", App.user);
+                        Hawk.put(Config.NUMBER_PREFS, gsm);
+                        Hawk.put(Config.PASSWORDFIELD_PREFS, password);
+                        Hawk.put("state", Config.STATE_CONNECTED);
+
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                }
+
+                catch(JSONException e){
+                    e.printStackTrace();
+                }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        });
 
     }
 
