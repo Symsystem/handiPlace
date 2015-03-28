@@ -153,10 +153,10 @@ public class DisabledTypeActivity extends ActionBarActivity {
             result += "3 ";
         }
         if (selectedButtons[4]) {
-            result += "5 ";
+            result += "4 ";
         }
         if (selectedButtons[5]) {
-            result += "4 ";
+            result += "5 ";
         }
 
         Map params = new HashMap();

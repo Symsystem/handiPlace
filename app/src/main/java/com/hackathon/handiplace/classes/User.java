@@ -6,6 +6,19 @@ public class User {
 
     private String macAddress;
     private int id;
+    private boolean[] disabilities;
+
+    public boolean[] getDisabilities() {
+        return disabilities;
+    }
+
+    public void setDisabilities(boolean[] disabilities) {
+        this.disabilities = disabilities;
+    }
+
+    public void setDisability(boolean ok, int index){
+        disabilities[index] = ok;
+    }
 
     private ArrayList<Restaurant> favoritesRestaurant;
 

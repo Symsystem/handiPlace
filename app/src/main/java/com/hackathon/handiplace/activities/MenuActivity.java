@@ -34,6 +34,7 @@ import com.hackathon.handiplace.request.PermissionGPS;
 import com.hackathon.handiplace.request.PostRequest;
 
 import org.apache.http.util.ExceptionUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -98,6 +99,10 @@ public class MenuActivity extends ActionBarActivity {
                         if (userJson.getBoolean("response")) {
                             HandiPlaceApplication.user = new User();
                             HandiPlaceApplication.user.setId(userJson.getInt("id"));
+                            JSONArray disArray = userJson.getJSONArray("disabilities");
+                            for(int i = 0; i<disArray.length(); i++){
+                                HandiPlaceApplication.user.setDisability(true, Config.idHandicap.get(disArray.getInt(i)));
+                            }
                         }
                         else {
                             // Renvoie une requête pour créer un compte
@@ -139,6 +144,10 @@ public class MenuActivity extends ActionBarActivity {
                         if (userJSON.getBoolean("response")) {
                             HandiPlaceApplication.user = new User();
                             HandiPlaceApplication.user.setId(userJSON.getInt("id"));
+                            JSONArray disArray = userJSON.getJSONArray("disabilities");
+                            for(int i = 0; i<disArray.length(); i++){
+                                HandiPlaceApplication.user.setDisability(true, Config.idHandicap.get(disArray.getInt(i)));
+                            }
                         }
                         else {
                             // Erreur !
