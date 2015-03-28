@@ -2,7 +2,6 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 tools:context=".MainActivity">
 
     <include
@@ -12,46 +11,60 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:paddingTop="8dp"
+        >
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/resto_location_button"
+        <ImageButton
             android:id="@+id/restoLocationButton"
-            android:layout_marginTop="30dp"/>
+            style="@style/MenuButton"
+            android:src="@drawable/icon_map"
+            />
 
-        <Button
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/resto_list_button"
-            android:id="@+id/restoListButton"
-            android:layout_marginTop="30dp"/>
+            android:text="Restos aux alentours"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:layout_marginBottom="8dp"
+            />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/resto_favoris_button"
+
+        <ImageButton
             android:id="@+id/restoFavorisButton"
-            android:layout_marginTop="30dp"/>
+            style="@style/MenuButton"
+            android:src="@drawable/icon_mesfavo"
 
-        <Button
+            />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/type_handicap_button"
-            android:id="@+id/typeHandicapButton"
-            android:layout_marginTop="30dp"/>
+            android:text="Mes restaurants"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:layout_marginBottom="8dp"
+            />
 
-        <!--<IconTextView
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/typeHandicapButton"
+            style="@style/MenuButton"
+            android:src="@drawable/icon_handi"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="{fa-star}"
-            android:textColor="@color/primary"
-            android:textSize="50sp"
-            />-->
+            android:text="Mon handicap"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:layout_marginBottom="8dp"
+            />
+
 
     </LinearLayout>
 
