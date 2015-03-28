@@ -7,6 +7,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -60,10 +61,32 @@ public class MenuActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        if(!Utils.isNetworkAvailable(this))
+        {
+            Log.d("Ceci n'est pas normal", "");
+            Intent intent = new Intent(MenuActivity.this, InternetActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+
+        if(!Utils.isLocationEnabled(this) && !HandiPlaceApplication.isLocated){
+            Intent intent = new Intent(MenuActivity.this, LocationActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        else if(!HandiPlaceApplication.isLocated){
+            mPosition = Utils.getLocation(this);
+            if(mPosition != null){
+                HandiPlaceApplication.isLocated = true;
+            }
+        }
 
         if(!HandiPlaceApplication.user.isConnected()) {
             login();
         }
+
 
         // Vérification de l'activation de la localisation
         //mLocationAsyncTask = new LocationAsyncTask(this);

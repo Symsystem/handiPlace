@@ -14,7 +14,7 @@
         android:layout_height="160dp"
         android:id="@+id/header_image"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/lapiazza"
+
         android:scaleType="centerCrop"
         android:adjustViewBounds="true" />
 
