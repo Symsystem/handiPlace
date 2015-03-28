@@ -25,21 +25,6 @@ public class RestoAdapter extends ArrayAdapter<Restaurant> {
     }
 
     @Override
-    public int getCount() {
-        return restaurants.size();
-    }
-
-    @Override
-    public Restaurant getItem(int position) {
-        return (Restaurant)restaurants.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder;

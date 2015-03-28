@@ -21,6 +21,7 @@ import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.classes.Utils;
 import com.hackathon.handiplace.classes.Position;
+import com.hackathon.handiplace.classes.Restaurant;
 import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PostRequest;
 
@@ -28,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -202,16 +204,28 @@ public class MenuActivity extends ActionBarActivity {
                 @Override
                 public void onResponse(String s) {
 
+                    ArrayList<Restaurant> restaurants = new ArrayList<>();
+
                     try {
                         JSONArray jarray = new JSONArray(s);
-                        int[] ids = new int[jarray.length()];
 
-                        for (int i = 0 ; i < ids.length ; i++) {
-                            ids[i] = jarray.getInt(i);
+                        for (int i = 0 ; i < jarray.length() ; i++) {
+
+                            JSONObject jo = jarray.getJSONObject(i);
+                            Restaurant res = new Restaurant(
+                                jo.getString("name"),
+                                jo.getString("category"),
+                                jo.getInt("points"),
+                                (jo.getDouble("distance") / 1000)
+                            );
+
+                            restaurants.add(res);
+
                         }
 
+                        Toast.makeText(MenuActivity.this, restaurants.size() + "", Toast.LENGTH_SHORT).show();
+
                         Intent intent = new Intent(MenuActivity.this, RestoListActivity.class);
-                        intent.putExtra("ids", ids);
                         startActivity(intent);
 
                     } catch (JSONException e) {

@@ -37,6 +37,7 @@ public class RestoListActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
+
         RestoAdapter adapter = new RestoAdapter(this, restaurants);
         listView.setAdapter(adapter);
         listView.setEmptyView(empty);
