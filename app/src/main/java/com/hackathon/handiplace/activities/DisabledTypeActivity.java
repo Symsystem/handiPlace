@@ -9,9 +9,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.classes.Config;
+import com.hackathon.handiplace.request.OkHttpStack;
+import com.hackathon.handiplace.request.PostRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -151,15 +159,27 @@ public class DisabledTypeActivity extends ActionBarActivity {
             result += "4 ";
         }
 
-
         Map params = new HashMap();
         params.put("idDisability", result);
 
-        String url = Config.BASE_URL + "";
+        String url = Config.BASE_URL + "users/" + HandiPlaceApplication.user.getId() + "/disabilities";
 
+        PostRequest request = new PostRequest(url, params, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                Toast.makeText(DisabledTypeActivity.this, "Requete réussie", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(DisabledTypeActivity.this, MenuActivity.class);
+                startActivity(intent);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(DisabledTypeActivity.this, "Une erreur est survenue", Toast.LENGTH_LONG).show();
+            }
+        });
 
-        Intent intent = new Intent(this, MenuActivity.class);
-        startActivity(intent);
+        RequestQueue queue = Volley.newRequestQueue(DisabledTypeActivity.this, new OkHttpStack());
+        queue.add(request);
 
     }
 
