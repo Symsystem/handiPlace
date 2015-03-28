@@ -13,23 +13,28 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.MenuActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.DisabledTypeActivity"
-            android:label="@string/title_activity_disabled_type">
+            android:label="@string/title_activity_disabled_type"
+            android:screenOrientation="portrait"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MenuActivity" />
         </activity>
         <activity
             android:name=".activities.RestoListActivity"
-            android:label="@string/title_activity_resto_list" >
+            android:label="@string/title_activity_resto_list"
+            android:screenOrientation="portrait"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MenuActivity" />
