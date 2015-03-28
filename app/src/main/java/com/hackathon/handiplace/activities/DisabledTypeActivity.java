@@ -61,10 +61,10 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[1]) {
             selectedButtons[1] = false;
-            motorButton.setImageResource(R.drawable.nottotallyblind_icon);
+            lightMotorButton.setImageResource(R.drawable.nottotallyblind_icon);
         } else {
             selectedButtons[1] = true;
-            motorButton.setImageResource((R.drawable.nottotallydisabled_selected));
+            lightMotorButton.setImageResource((R.drawable.nottotallydisabled_selected));
         }
 
     }
@@ -74,10 +74,10 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[2]) {
             selectedButtons[2] = false;
-            motorButton.setImageResource(R.drawable.blind_icon);
+            blindButton.setImageResource(R.drawable.blind_icon);
         } else {
             selectedButtons[2] = true;
-            motorButton.setImageResource((R.drawable.blind_icon_selected));
+            blindButton.setImageResource((R.drawable.blind_icon_selected));
         }
 
     }
@@ -87,10 +87,10 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[3]) {
             selectedButtons[3] = false;
-            motorButton.setImageResource(R.drawable.nottotallyblind_icon);
+            vewProblemsButton.setImageResource(R.drawable.nottotallyblind_icon);
         } else {
             selectedButtons[3] = true;
-            motorButton.setImageResource((R.drawable.nottotallyblind_icon_selected));
+            vewProblemsButton.setImageResource((R.drawable.nottotallyblind_icon_selected));
         }
 
     }
@@ -100,10 +100,10 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[4]) {
             selectedButtons[4] = false;
-            motorButton.setImageResource(R.drawable.deaf_icon);
+            deafButton.setImageResource(R.drawable.deaf_icon);
         } else {
             selectedButtons[4] = true;
-            motorButton.setImageResource((R.drawable.deaf_icon_selected));
+            deafButton.setImageResource((R.drawable.deaf_icon_selected));
         }
 
     }
@@ -113,10 +113,10 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[5]) {
             selectedButtons[5] = false;
-            motorButton.setImageResource(R.drawable.nottotallydeaf_icon);
+            hearingProblemsButton.setImageResource(R.drawable.nottotallydeaf_icon);
         } else {
             selectedButtons[5] = true;
-            motorButton.setImageResource((R.drawable.nottotallydeaf_icon_selected));
+            hearingProblemsButton.setImageResource((R.drawable.nottotallydeaf_icon_selected));
         }
 
     }
