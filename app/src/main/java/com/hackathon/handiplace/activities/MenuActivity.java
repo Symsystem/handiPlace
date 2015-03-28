@@ -23,7 +23,6 @@ import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.classes.Config;
 import com.hackathon.handiplace.classes.Position;
-import com.hackathon.handiplace.classes.User;
 import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PermissionGPS;
 import com.hackathon.handiplace.request.PostRequest;
@@ -66,7 +65,7 @@ public class MenuActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        if(HandiPlaceApplication.user == null) {
+        if(!HandiPlaceApplication.user.isConnected()) {
             login();
         }
 
@@ -94,7 +93,7 @@ public class MenuActivity extends ActionBarActivity {
 
                             Toast.makeText(MenuActivity.this, "REPONSE", Toast.LENGTH_SHORT).show();
 
-                            HandiPlaceApplication.user = new User();
+                            HandiPlaceApplication.user.setConnected(true);
                             HandiPlaceApplication.user.setId(userJson.getInt("id"));
                             JSONArray disArray = userJson.getJSONArray("disabilities");
                             for(int i = 0; i<disArray.length(); i++){
@@ -139,7 +138,7 @@ public class MenuActivity extends ActionBarActivity {
                     if (userJSON.has("response")) {
 
                         if (userJSON.getBoolean("response")) {
-                            HandiPlaceApplication.user = new User();
+                            HandiPlaceApplication.user.setConnected(true);
                             HandiPlaceApplication.user.setId(userJSON.getInt("id"));
                             JSONArray disArray = userJSON.getJSONArray("disabilities");
                             for(int i = 0; i<disArray.length(); i++){

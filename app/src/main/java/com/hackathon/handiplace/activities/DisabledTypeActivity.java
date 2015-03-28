@@ -22,6 +22,9 @@ import com.hackathon.handiplace.classes.Config;
 import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PostRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -180,8 +183,32 @@ public class DisabledTypeActivity extends ActionBarActivity {
         PostRequest request = new PostRequest(url, params, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
+                try{
+                    JSONObject userJson = new JSONObject(s);
+
+                    if (userJson.has("response")) {
+
+                        if (userJson.getBoolean("response")) {
+
+                            for(int i = 0; i<Config.idHandicap.size(); i++){
+                                if(selectedButtons[i])
+                                    HandiPlaceApplication.user.setDisability(true, i);
+                            }
+                        }
+                        else {
+                            // Renvoie une requête pour créer un compte
+                        }
+                    } else {
+                        // Erreur !
+                    }
+                }
+                catch(JSONException e){
+                    e.printStackTrace();
+                }
+
                 Intent intent = new Intent(DisabledTypeActivity.this, MenuActivity.class);
                 startActivity(intent);
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -206,7 +233,15 @@ public class DisabledTypeActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        selectedButtons = new boolean[6];
+        selectedButtons = new boolean[Config.idHandicap.size()];
+
+        for (int i = 0; i<Config.idHandicap.size(); i++){
+           if(HandiPlaceApplication.user.getDisabilities()[i]){
+               selectedButtons[i] = true;
+               deafButton.setBackgroundResource(R.drawable.button_background_selected);
+           }
+        }
+
     }
 
 

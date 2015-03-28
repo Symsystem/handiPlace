@@ -7,6 +7,19 @@ public class User {
     private String macAddress;
     private int id;
     private boolean[] disabilities;
+    private boolean connected;
+
+    public User(){
+        disabilities = new boolean[Config.idHandicap.size()];
+        connected = false;
+    }
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
+    }
 
     public boolean[] getDisabilities() {
         return disabilities;
