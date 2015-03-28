@@ -9,7 +9,11 @@ public class DummyData {
     static {
 
         ArrayList<Restaurant> restaurants = new ArrayList<>();
-        // restaurants.add(new Restaurant(""));
+        restaurants.add(new Restaurant("Au délice", "Venez vous régaler chez nous!", "Frites",
+                "Impasse de la Fidélité 4A 1000 Ville de Bruxelles", null));
+        restaurants.add(new Restaurant("Pépé café", "Pour bien manger !", "Italien",
+                "Rue de Tabora 11 1000 Ville de Bruxelles", null));
+        restaurants.add(new Restaurant("Xu ji", "Venez vous régaler chez nous!", "Chinois", "Rue des Poissonniers 5 1000 Ville de Bruxelles", null));
 
     }
 

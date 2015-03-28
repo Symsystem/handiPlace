@@ -41,9 +41,18 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="{icon-star}"
+            android:text="@string/type_handicap_button"
             android:id="@+id/typeHandicapButton"
             android:layout_marginTop="30dp"/>
+
+        <!--<IconTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="{fa-star}"
+            android:textColor="@color/primary"
+            android:textSize="50sp"
+            />-->
+
     </LinearLayout>
 
 
