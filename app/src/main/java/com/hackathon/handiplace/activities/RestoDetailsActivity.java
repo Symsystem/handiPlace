@@ -1,18 +1,45 @@
 package com.hackathon.handiplace.activities;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.hackathon.handiplace.R;
 
+//if (view.getBackground() == getResources().getDrawable(R.drawable.button_background)) {
+//    view.setBackgroundResource(R.drawable.button_background_selected);
+//} else {
+//    view.setBackgroundResource(R.drawable.button_background);
+//}
+
 public class RestoDetailsActivity extends ActionBarActivity {
+
+    private boolean isFav;
+    private ImageView favView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resto_details);
+
+        favView = (ImageButton) findViewById(R.id.fav);
+
+        favView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isFav) {
+                    favView.setImageResource(R.drawable.favorisavant);
+                    isFav = false;
+                } else {
+                    favView.setImageResource(R.drawable.favorisapres);
+                    isFav = true;
+                }
+            }
+        });
     }
 
 

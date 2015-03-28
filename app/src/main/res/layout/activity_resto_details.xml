@@ -1,38 +1,258 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.hackathon.handiplace.activities.RestoDetailsActivity">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_below="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:id="@+id/header_image"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/pouce_vert"
-        android:adjustViewBounds="true"/>
+        android:src="@drawable/lapiazza"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true" />
+
+    <ImageButton
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/favorisavant"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:id="@+id/fav"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Au Bon Pouce"
-        android:id="@+id/textView"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:text="Nom du restaurant"
+        android:id="@+id/resto_name"
+        android:layout_below="@+id/header_image"
         android:textIsSelectable="false"
         android:textSize="30dp"
-        android:textColor="@android:color/black"/>
-</RelativeLayout>
+        android:layout_marginTop="16dp"
+        android:textColor="@color/primary_text"
+        android:layout_margin="8dp"
+        />
+
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Ceci est la description du restaurant. Ceci est la description du restaurant. Ceci est la description du restaurant."
+           android:layout_below="@id/resto_name"
+         android:textSize="16sp"
+         android:textColor="@color/secondary_text"
+         android:layout_marginLeft="8dp"
+         android:layout_marginRight="8dp"
+         android:layout_marginBottom="8dp"
+         android:id="@+id/resto_desc"
+         />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/resto_desc"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="8dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+                    >
+
+                    <ImageButton
+                        android:src="@drawable/disabled"
+                        android:id="@+id/motor"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:scaleType="fitCenter"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/button_background"
+                        />
+
+                    <IconTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="{fa-star} {fa-star} {fa-star} {fa-star} {fa-star}"
+                        android:textColor="@color/accent"
+                        android:textSize="24dp"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                    />
+
+                    </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+                    >
+
+                    <ImageButton
+                        android:src="@drawable/nottotallydisabled"
+                        android:id="@+id/lightMotor"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:scaleType="fitCenter"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/button_background"
+                        />
+
+                    <IconTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="{fa-star} {fa-star} {fa-star}"
+                        android:textColor="@color/accent"
+                        android:textSize="24dp"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+                    >
+
+                    <ImageButton
+                        android:src="@drawable/blind"
+                        android:id="@+id/blind"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:scaleType="fitCenter"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/button_background"
+                        />
+
+                    <IconTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/accent"
+                        android:textSize="24dp"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+                    >
+
+                    <ImageButton
+                        android:src="@drawable/nottotallyblind"
+                        android:id="@+id/viewProblems"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:scaleType="fitCenter"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/button_background"
+                        />
+
+                    <IconTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="{fa-star}"
+                        android:textColor="@color/accent"
+                        android:textSize="24dp"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+                    >
+
+                    <ImageButton
+                        android:src="@drawable/deaf"
+                        android:id="@+id/deaf"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:scaleType="fitCenter"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/button_background"
+                        />
+
+                    <IconTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="{fa-star} {fa-star}"
+                        android:textColor="@color/accent"
+                        android:textSize="24dp"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginRight="8dp"
+
+                    >
+
+                    <ImageButton
+                        android:src="@drawable/nottotallydeaf"
+                        android:id="@+id/hearing_problems"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:scaleType="fitCenter"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/button_background"
+                        />
+
+                    <IconTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="{fa-star} {fa-star} {fa-star} {fa-star}"
+                        android:textColor="@color/accent"
+                        android:textSize="24dp"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        />
+
+                </LinearLayout>
+
+                </LinearLayout>
+
+
+          </HorizontalScrollView>
+
+
+    </RelativeLayout>
+
+</ScrollView>

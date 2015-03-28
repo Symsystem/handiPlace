@@ -62,6 +62,10 @@ public class MenuActivity extends ActionBarActivity {
 
         ButterKnife.inject(this);
 
+        Intent intent = new Intent(this, RestoDetailsActivity.class);
+        startActivity(intent);
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
