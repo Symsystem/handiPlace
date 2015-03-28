@@ -36,6 +36,9 @@ import org.apache.http.util.ExceptionUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -80,7 +83,7 @@ public class MenuActivity extends ActionBarActivity {
         WifiInfo info = manager.getConnectionInfo();
         macAddress = info.getMacAddress();
 
-        String URL = Config.BASE_URL + "api/users/" + macAddress;
+        String URL = Config.BASE_URL + "api/users/" + macAddress + ".json";
         StringRequest request = new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
@@ -95,7 +98,7 @@ public class MenuActivity extends ActionBarActivity {
                         }
                         else {
                             // Renvoie une requête pour créer un compte
-
+                            createUser();
                         }
                     } else {
                         Log.i("Ici non plus ! :", "");
@@ -116,6 +119,43 @@ public class MenuActivity extends ActionBarActivity {
         RequestQueue queue = Volley.newRequestQueue(MenuActivity.this, new OkHttpStack());
         queue.add(request);
 
+    }
+
+    private void createUser(){
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("macAddress", macAddress);
+        String URL = Config.BASE_URL + "apis/users.json";
+
+        PostRequest requestAddUser = new PostRequest(URL, params, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                try{
+                    JSONObject userJSON = new JSONObject(s);
+                    if (userJSON.has("response")) {
+
+                        if (userJSON.getBoolean("response")) {
+                            HandiPlaceApplication.user.setId(userJSON.getInt("id"));
+                        }
+                        else {
+                            // Erreur !
+                        }
+                    } else {
+
+                    }
+                }
+                catch(JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        },
+        new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        });
+        RequestQueue queue = Volley.newRequestQueue(MenuActivity.this, new OkHttpStack());
+        queue.add(requestAddUser);
     }
 
 
