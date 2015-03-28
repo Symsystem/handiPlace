@@ -14,4 +14,6 @@
     <string name="resto_list_button">Liste restaurants</string>
     <string name="resto_favoris_button">Mes restaurants</string>
     <string name="type_handicap_button">Mon handicap</string>
+
+    <string name="no_data_resto_list">No data to display</string>
 </resources>

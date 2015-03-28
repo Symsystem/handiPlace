@@ -18,7 +18,7 @@ import butterknife.OnClick;
 
 public class MenuActivity extends ActionBarActivity {
 
-    Toolbar mToolbar;
+    Toolbar toolbar;
 
     @InjectView(R.id.restoLocationButton) Button mRestoLocation;
     @InjectView(R.id.restoListButton) Button mRestoList;
@@ -32,12 +32,10 @@ public class MenuActivity extends ActionBarActivity {
 
         ButterKnife.inject(this);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
     }
 
     @OnClick (R.id.typeHandicapButton)
