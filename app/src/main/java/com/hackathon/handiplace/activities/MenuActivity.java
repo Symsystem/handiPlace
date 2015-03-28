@@ -223,7 +223,7 @@ public class MenuActivity extends ActionBarActivity {
                         }
 
                         Intent intent = new Intent(MenuActivity.this, RestoListActivity.class);
-                        intent.putExtra("restos", restaurants);
+                        intent.putExtra("restos",restaurants);
                         startActivity(intent);
 
                     } catch (JSONException e) {
