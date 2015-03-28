@@ -42,12 +42,12 @@ public class MenuActivity extends ActionBarActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Position currentPosition;
-        LocationAsyncTask loc = new LocationAsyncTask(this);
-        loc.execute();
+        //LocationAsyncTask loc = new LocationAsyncTask(this);
+        //loc.execute();
     }
 
 
