@@ -26,5 +26,7 @@
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="#fff44336"/>
+        android:background="@drawable/button_background"/>
+
+
 </RelativeLayout>
