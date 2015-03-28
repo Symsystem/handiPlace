@@ -9,6 +9,16 @@ public class Restaurant {
     private String category;
     private String address;
     private String imageURL;
+    private int rating;
+
+    public Restaurant(String name, String description, String category, String address, int rating, ArrayList<Criterion> criterions) {
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.address = address;
+        this.criterions = criterions;
+        this.rating = rating;
+    }
 
     public int getRating() {
         return rating;
@@ -17,8 +27,6 @@ public class Restaurant {
     public void setRating(int rating) {
         this.rating = rating;
     }
-
-    private int rating;
 
     public String getName() {
         return name;
@@ -61,12 +69,4 @@ public class Restaurant {
     }
 
     private ArrayList<Criterion> criterions;
-
-    public Restaurant(String name, String description, String category, String address, ArrayList<Criterion> criterions) {
-        this.name = name;
-        this.description = description;
-        this.category = category;
-        this.address = address;
-        this.criterions = criterions;
-    }
 }
