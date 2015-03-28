@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.hackathon.handiplace.R;
+import com.hackathon.handiplace.classes.Config;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -126,7 +130,33 @@ public class DisabledTypeActivity extends ActionBarActivity {
     @OnClick(R.id.continue_button)
     public void sendResult() {
 
-        // TODO notice the backend of the disabilities of the user
+        String result = new String();
+
+        if (selectedButtons[0]) {
+            result += "1 ";
+        }
+        if (selectedButtons[1]) {
+            result += "6 ";
+        }
+        if (selectedButtons[2]) {
+            result += "2 ";
+        }
+        if (selectedButtons[3]) {
+            result += "3 ";
+        }
+        if (selectedButtons[4]) {
+            result += "5 ";
+        }
+        if (selectedButtons[5]) {
+            result += "4 ";
+        }
+
+
+        Map params = new HashMap();
+        params.put("idDisability", result);
+
+        String url = Config.BASE_URL + "";
+
 
         Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
