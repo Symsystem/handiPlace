@@ -10,6 +10,7 @@ public class Restaurant {
     private String address;
     private String imageURL;
     private int rating;
+    private int kilometers;
 
     public Restaurant(String name, String description, String category, String address, int rating, ArrayList<Criterion> criterions) {
         this.name = name;
@@ -69,4 +70,8 @@ public class Restaurant {
     }
 
     private ArrayList<Criterion> criterions;
+
+    public int getKilometers() {
+        return kilometers;
+    }
 }

@@ -51,6 +51,7 @@ public class RestoAdapter extends ArrayAdapter<Restaurant> {
             holder.name = (TextView) convertView.findViewById(R.id.resto_name);
             holder.category = (TextView) convertView.findViewById(R.id.resto_cat);
             holder.rating = (IconTextView) convertView.findViewById(R.id.resto_rating);
+            holder.km = (TextView) convertView.findViewById(R.id.kms);
             convertView.setTag(holder);
         }
 
@@ -63,6 +64,7 @@ public class RestoAdapter extends ArrayAdapter<Restaurant> {
         holder.name.setText(restaurant.getName());
         holder.category.setText(restaurant.getCategory());
         holder.rating.setText(calculRate(position));
+        holder.km.setText(restaurant.getKilometers()+ "km");
 
         return convertView;
 
@@ -76,6 +78,7 @@ public class RestoAdapter extends ArrayAdapter<Restaurant> {
 
         TextView name;
         TextView category;
+        TextView km;
         IconTextView rating;
 
     }

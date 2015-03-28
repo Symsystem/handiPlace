@@ -16,19 +16,34 @@
             tools:text="@string/list_item_resto_name"
             android:textSize="24sp"
             android:paddingTop="8dp"
+            android:paddingBottom="4dp"
             android:textColor="@android:color/black"
             android:paddingLeft="16dp"/>
+
+        <TextView
+            android:id="@+id/kms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:textSize="16sp"
+            android:text="5.6km"
+            />
 
         <TextView
             android:id="@+id/resto_cat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/resto_name"
-            android:paddingTop="4dp"
             tools:text="@string/list_item_resto_type"
             android:textSize="18sp"
-            android:textColor="#ff505050"
-            android:paddingLeft="16dp"/>
+            android:textColor="@color/secondary_text"
+            android:paddingLeft="16dp"
+            android:layout_marginBottom="8dp"
+            android:textStyle="italic"
+            />
 
         <IconTextView
             android:id="@+id/resto_rating"
@@ -39,7 +54,7 @@
             tools:text="{fa-star} {fa-star} {fa-star}"
             android:textSize="24sp"
             android:textColor="@color/accent"
-            android:paddingRight="8dp"
+            android:layout_marginRight="16dp"
             />
 
     </RelativeLayout>
