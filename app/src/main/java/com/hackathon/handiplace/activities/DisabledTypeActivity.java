@@ -50,8 +50,73 @@ public class DisabledTypeActivity extends ActionBarActivity {
             selectedButtons[0] = false;
             motorButton.setImageResource(R.drawable.disabled_icon);
         } else {
+            selectedButtons[0] = true;
+            motorButton.setImageResource((R.drawable.disabled_icon_selected));
+        }
+
+    }
+
+    @OnClick(R.id.disabled_type_2)
+    public void selectLightMotorButton(View view) {
+
+        if (selectedButtons[1]) {
+            selectedButtons[1] = false;
+            motorButton.setImageResource(R.drawable.nottotallyblind_icon);
+        } else {
             selectedButtons[1] = true;
-            motorButton.setImageResource((R.drawable.disabled_icon));
+            motorButton.setImageResource((R.drawable.nottotallydisabled_selected));
+        }
+
+    }
+
+    @OnClick(R.id.disabled_type_3)
+     public void selectBlindButton(View view) {
+
+        if (selectedButtons[2]) {
+            selectedButtons[2] = false;
+            motorButton.setImageResource(R.drawable.blind_icon);
+        } else {
+            selectedButtons[2] = true;
+            motorButton.setImageResource((R.drawable.blind_icon_selected));
+        }
+
+    }
+
+    @OnClick(R.id.disabled_type_4)
+    public void selectVewProblemsButton(View view) {
+
+        if (selectedButtons[3]) {
+            selectedButtons[3] = false;
+            motorButton.setImageResource(R.drawable.nottotallyblind_icon);
+        } else {
+            selectedButtons[3] = true;
+            motorButton.setImageResource((R.drawable.nottotallyblind_icon_selected));
+        }
+
+    }
+
+    @OnClick(R.id.disabled_type_5)
+    public void selectDeafButton(View view) {
+
+        if (selectedButtons[4]) {
+            selectedButtons[4] = false;
+            motorButton.setImageResource(R.drawable.deaf_icon);
+        } else {
+            selectedButtons[4] = true;
+            motorButton.setImageResource((R.drawable.deaf_icon_selected));
+        }
+
+    }
+
+    @OnClick(R.id.disabled_type_6)
+    public void selectHearingProblemesButton(View view) {
+
+        if (selectedButtons[5]) {
+            selectedButtons[5] = false;
+            motorButton.setImageResource(R.drawable.nottotallydeaf_icon);
+        } else {
+            selectedButtons[5] = true;
+            motorButton.setImageResource((R.drawable.nottotallydeaf_icon_selected));
         }
 
     }
