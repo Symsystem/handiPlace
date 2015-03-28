@@ -1,6 +1,7 @@
 package com.hackathon.handiplace.activities;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,20 +14,26 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.classes.Config;
 import com.hackathon.handiplace.classes.Position;
+import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PermissionGPS;
 import com.hackathon.handiplace.request.PostRequest;
 
 import org.apache.http.util.ExceptionUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.ButterKnife;
@@ -60,7 +67,8 @@ public class MenuActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        login();
+        if(HandiPlaceApplication.user == null)
+            login();
 
         // Vérification de l'activation de la localisation
         mLocationAsyncTask = new LocationAsyncTask(this);
@@ -72,7 +80,7 @@ public class MenuActivity extends ActionBarActivity {
         WifiInfo info = manager.getConnectionInfo();
         macAddress = info.getMacAddress();
 
-        String URL = Config.BASE_URL + "users/" + macAddress;
+        String URL = Config.BASE_URL + "api/users/" + macAddress;
         StringRequest request = new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
@@ -80,48 +88,33 @@ public class MenuActivity extends ActionBarActivity {
 
                     JSONObject userJson = new JSONObject(s);
 
-                    if (userJson.has("Message")) {
+                    if (userJson.has("response")) {
 
-                        String message = userJson.getString("Message");
+                        if (userJson.getBoolean("response")) {
+                            int id = userJson.getInt("id");
+                        }
+                        else {
+                            // Renvoie une requête pour créer un compte
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
-                        builder.setTitle("Erreur");
-                        builder.setMessage(message);
-                        builder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-
+                        }
                     } else {
-
-                        int id = Integer.parseInt((String) userJson.get("Id"));
-                        String name = (String) userJson.get("Nom");
-                        String nickname = (String) userJson.get("Prenom");
-                        String email = (String) userJson.get("Email");
-                        String gsm = (String) userJson.get("Gsm");
-                        int state = Integer.parseInt((String) userJson.get("Etat"));
-
-                        App.user = new User(id, nickname, name, email, gsm, state);
-                        Hawk.put("User", App.user);
-                        Hawk.put(Config.NUMBER_PREFS, gsm);
-                        Hawk.put(Config.PASSWORDFIELD_PREFS, password);
-                        Hawk.put("state", Config.STATE_CONNECTED);
-
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                        Log.i("Ici non plus ! :", "");
                     }
-                }
 
-                catch(JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
-        }, new Response.ErrorListener() {
+            }
+        },
+                    new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
 
             }
         });
+
+        RequestQueue queue = Volley.newRequestQueue(MenuActivity.this, new OkHttpStack());
+        queue.add(request);
 
     }
 
@@ -153,10 +146,10 @@ public class MenuActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(Position result) {
-            if(result == null){
+            /*if(result == null){
                 ErrorActivity error = new ErrorActivity();
                 error.show(getFragmentManager(), "error_dialog");
-            }
+            }*/
             isLocationFinished = true;
             mPosition = result;
         }
