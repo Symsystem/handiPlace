@@ -17,6 +17,7 @@ import android.widget.Button;
 import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.classes.Position;
 import com.hackathon.handiplace.request.GPSTracker;
+import com.hackathon.handiplace.request.LocationAsyncTask;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -44,23 +45,12 @@ public class MenuActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        //Position currentPosition = getCurrentLocation();
+        Position currentPosition;
+        LocationAsyncTask loc = new LocationAsyncTask(this);
+        loc.execute();
     }
 
-    private Position getCurrentLocation() {
-        // Acquire a reference to the system Location Manager
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-        // Define a listener that responds to location updates
-        GPSTracker locationListener = new GPSTracker();
-
-        // Register the listener with the Location Manager to receive location updates
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000L, 500.0f, locationListener);
-
-        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-        return new Position(location.getLatitude(), location.getLongitude());
-    }
 
     @OnClick (R.id.restoLocationButton)
     public void startRestLocationActivity(View view){
