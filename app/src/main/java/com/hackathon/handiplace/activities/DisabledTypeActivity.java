@@ -163,12 +163,10 @@ public class DisabledTypeActivity extends ActionBarActivity {
         params.put("idDisability", result);
 
         String url = Config.BASE_URL + "api/users/" + HandiPlaceApplication.user.getId() + "/disabilities.json";
-        Toast.makeText(this, url, Toast.LENGTH_LONG).show();
 
         PostRequest request = new PostRequest(url, params, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-                Toast.makeText(DisabledTypeActivity.this, "Requete réussie", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(DisabledTypeActivity.this, MenuActivity.class);
                 startActivity(intent);
             }
