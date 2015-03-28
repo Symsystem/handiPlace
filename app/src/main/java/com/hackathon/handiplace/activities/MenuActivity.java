@@ -18,7 +18,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
-import com.hackathon.handiplace.classes.Position;
 import com.hackathon.handiplace.classes.Restaurant;
 import com.hackathon.handiplace.classes.Utils;
 import com.hackathon.handiplace.request.OkHttpStack;
@@ -87,6 +86,7 @@ public class MenuActivity extends ActionBarActivity {
 
                         JSONObject jo = jarray.getJSONObject(i);
                         Restaurant res = new Restaurant(
+                                jo.getInt("id"),
                                 jo.getString("name"),
                                 jo.getString("category"),
                                 jo.getInt("points"),

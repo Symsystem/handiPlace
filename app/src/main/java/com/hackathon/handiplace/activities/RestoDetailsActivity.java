@@ -1,5 +1,6 @@
 package com.hackathon.handiplace.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -7,8 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.hackathon.handiplace.R;
+import com.hackathon.handiplace.classes.Restaurant;
 
 //if (view.getBackground() == getResources().getDrawable(R.drawable.button_background)) {
 //    view.setBackgroundResource(R.drawable.button_background_selected);
@@ -20,6 +23,7 @@ public class RestoDetailsActivity extends ActionBarActivity {
 
     private boolean isFav;
     private ImageView favView;
+    private Restaurant resto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,11 @@ public class RestoDetailsActivity extends ActionBarActivity {
                 }
             }
         });
+
+        Intent intent = getIntent();
+        resto = (Restaurant)intent.getSerializableExtra("restos");
+
+        Toast.makeText(this, resto.getDescription().toString(), Toast.LENGTH_LONG).show();
     }
 
 
