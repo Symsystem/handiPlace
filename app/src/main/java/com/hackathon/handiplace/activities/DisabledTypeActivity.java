@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -12,9 +13,12 @@ import com.hackathon.handiplace.R;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 
 public class DisabledTypeActivity extends ActionBarActivity {
+
+    boolean[] selectedButtons;
 
     Toolbar mToolbar;
 
@@ -39,6 +43,19 @@ public class DisabledTypeActivity extends ActionBarActivity {
     @InjectView(R.id.continue_button)
     Button continueButton;
 
+    @OnClick(R.id.disabled_type_1)
+    public void selectMotorButton(View view) {
+
+        if (selectedButtons[0]) {
+            selectedButtons[0] = false;
+            motorButton.setImageResource(R.drawable.disabled_icon);
+        } else {
+            selectedButtons[1] = true;
+            motorButton.setImageResource((R.drawable.disabled_icon));
+        }
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +66,8 @@ public class DisabledTypeActivity extends ActionBarActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        selectedButtons = new boolean[6];
     }
 
 
