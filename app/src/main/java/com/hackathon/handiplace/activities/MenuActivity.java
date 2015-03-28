@@ -24,6 +24,7 @@ import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.classes.Config;
 import com.hackathon.handiplace.classes.Position;
+import com.hackathon.handiplace.request.GPSTracker;
 import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PermissionGPS;
 import com.hackathon.handiplace.request.PostRequest;
@@ -52,7 +53,6 @@ public class MenuActivity extends ActionBarActivity {
     ImageButton mTypeHandicap;
 
     private Position mPosition;
-    private LocationAsyncTask mLocationAsyncTask;
     private String macAddress;
 
     @Override
@@ -66,13 +66,16 @@ public class MenuActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        Intent intent = new Intent(MenuActivity.this, InternetActivity.class);
+        startActivity(intent);
+
         if(!HandiPlaceApplication.user.isConnected()) {
             login();
         }
 
         // Vérification de l'activation de la localisation
-        mLocationAsyncTask = new LocationAsyncTask(this);
-        mLocationAsyncTask.execute();
+        //mLocationAsyncTask = new LocationAsyncTask(this);
+        //mLocationAsyncTask.execute();
     }
 
     private void login() {
@@ -220,66 +223,6 @@ public class MenuActivity extends ActionBarActivity {
     public void startDisabledTypeActivity(View view){
         Intent intent = new Intent(this, DisabledTypeActivity.class);
         startActivity(intent);
-    }
-
-    public class LocationAsyncTask extends AsyncTask<Void, Void, Position> {
-
-        private Context context;
-        private boolean isLocationFinished;
-
-        public LocationAsyncTask(Context context){
-            this.context = context;
-        }
-
-        @Override
-        protected void onPostExecute(Position result) {
-            /*if(result == null){
-                ErrorActivity error = new ErrorActivity();
-                error.show(getFragmentManager(), "error_dialog");
-            }*/
-            isLocationFinished = true;
-            mPosition = result;
-
-        }
-
-        @Override
-        protected Position doInBackground(Void... params) {
-
-            /** Récupère le locationManager qui gère la localisation */
-            LocationManager locManager;
-            locManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-            /** Test si le gps est activé ou non */
-            if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                /** on lance notre activity (qui est une dialog) */
-                Intent localIntent = new Intent(MenuActivity.this, PermissionGPS.class);
-                localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(localIntent);
-            }
-
-            Location location;
-            /** Ensuite on demande a ecouter la localisation (dans la classe qui implémente le LocationListener*/
-            if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            } else {
-                location = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            }
-
-            if(location == null){
-                return null;
-            }
-            else {
-                return new Position(location.getLatitude(), location.getLongitude());
-            }
-        }
-
-        @Override
-        protected void onPreExecute() {
-            //isLocationFinished = false;
-        }
-
-        public boolean isFinished(){
-            return isLocationFinished;
-        }
     }
 
 }
