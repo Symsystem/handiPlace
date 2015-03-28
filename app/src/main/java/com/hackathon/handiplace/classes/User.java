@@ -10,7 +10,7 @@ public class User {
     private boolean connected;
 
     public User(){
-        disabilities = new boolean[Config.idHandicap.size()];
+        disabilities = new boolean[Utils.idHandicap.size()];
         connected = false;
     }
     public boolean isConnected() {

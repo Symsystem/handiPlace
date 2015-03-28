@@ -18,7 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
-import com.hackathon.handiplace.classes.Config;
+import com.hackathon.handiplace.classes.Utils;
 import com.hackathon.handiplace.classes.Position;
 import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PostRequest;
@@ -75,7 +75,7 @@ public class MenuActivity extends ActionBarActivity {
         WifiInfo info = manager.getConnectionInfo();
         macAddress = info.getMacAddress();
 
-        String URL = Config.BASE_URL + "api/users/" + macAddress + ".json";
+        String URL = Utils.BASE_URL + "api/users/" + macAddress + ".json";
         StringRequest request = new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
@@ -93,7 +93,7 @@ public class MenuActivity extends ActionBarActivity {
                             HandiPlaceApplication.user.setId(userJson.getInt("id"));
                             JSONArray disArray = userJson.getJSONArray("disabilities");
                             for(int i = 0; i<disArray.length(); i++){
-                                HandiPlaceApplication.user.setDisability(true, Config.idHandicap.get(disArray.getInt(i)));
+                                HandiPlaceApplication.user.setDisability(true, Utils.idHandicap.get(disArray.getInt(i)));
                             }
                         }
                         else {
@@ -124,7 +124,7 @@ public class MenuActivity extends ActionBarActivity {
     private void createUser(){
         Map<String, String> params = new HashMap<String, String>();
         params.put("macAddress", macAddress);
-        String URL = Config.BASE_URL + "api/users.json";
+        String URL = Utils.BASE_URL + "api/users.json";
 
         PostRequest requestAddUser = new PostRequest(URL, params, new Response.Listener<String>() {
             @Override
@@ -138,7 +138,7 @@ public class MenuActivity extends ActionBarActivity {
                             HandiPlaceApplication.user.setId(userJSON.getInt("id"));
                             JSONArray disArray = userJSON.getJSONArray("disabilities");
                             for(int i = 0; i<disArray.length(); i++){
-                                HandiPlaceApplication.user.setDisability(true, Config.idHandicap.get(disArray.getInt(i)));
+                                HandiPlaceApplication.user.setDisability(true, Utils.idHandicap.get(disArray.getInt(i)));
                             }
                         }
                         else {
@@ -173,7 +173,7 @@ public class MenuActivity extends ActionBarActivity {
         // else {
             // TODO
             // String url = Config.BASE_URL + "api/places/" + mPosition.getLongitude() + "/longitudes/ " + mPosition.getLatitude() + "/latitude.json";
-            String url = Config.BASE_URL + "api/places/" + 50 + "/longitudes/" + 4 + "/latitude.json";
+            String url = Utils.BASE_URL + "api/places/" + 50 + "/longitudes/" + 4 + "/latitude.json";
 
             StringRequest request = new StringRequest(url, new Response.Listener<String>() {
                 @Override
