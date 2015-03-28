@@ -19,4 +19,9 @@
     <string name="title_activity_opinion">OpinionActivity</string>
     <string name="title_activity_resto_details">RestoDetailsActivity</string>
 
+    <string name="waiting_title">Veuillez patienter</string>
+    <string name="waiting_value">Téléchargement des données...</string>
+
+    <string name="active_GPS_title">Activer la localisation</string>
+
 </resources>

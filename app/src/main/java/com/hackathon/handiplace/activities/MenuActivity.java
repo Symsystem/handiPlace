@@ -1,11 +1,13 @@
 package com.hackathon.handiplace.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,6 +16,9 @@ import android.widget.Toast;
 
 import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.classes.Position;
+import com.hackathon.handiplace.request.PermissionGPS;
+
+import org.apache.http.util.ExceptionUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -32,7 +37,6 @@ public class MenuActivity extends ActionBarActivity {
     ImageButton mTypeHandicap;
 
     private Position mPosition;
-    private boolean isLocationFinished;
     private LocationAsyncTask mLocationAsyncTask;
 
     @Override
@@ -54,6 +58,10 @@ public class MenuActivity extends ActionBarActivity {
 
     @OnClick (R.id.restoLocationButton)
     public void startRestLocationActivity(View view){
+        /*if(!mLocationAsyncTask.isFinished()){
+            updateBarHandler = new Handler();
+        }*/
+
         Intent intent = new Intent(this, RestoListActivity.class);
         startActivity(intent);
     }
@@ -64,9 +72,76 @@ public class MenuActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    /*ProgressDialog barProgressDialog;
+    Handler updateBarHandler;
+
+    public void launchRingDialog(View view) {
+        final ProgressDialog ringProgressDialog = ProgressDialog.show(MenuActivity.this,
+                getResources().getString(R.string.waiting_title),
+                getResources().getString(R.string.waiting_value), true);
+
+        ringProgressDialog.setCancelable(true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Here you should write your time consuming task...
+                    // Let the progress ring for 10 seconds...
+                    Thread.sleep(10000);
+                } catch (Exception e) {
+
+                }
+                ringProgressDialog.dismiss();
+            }
+        }).start();
+    }
+
+    public void launchBarDialog(View view) {
+        barProgressDialog = new ProgressDialog(MenuActivity.this);
+
+        barProgressDialog.setTitle(getResources().getString(R.string.waiting_title));
+        barProgressDialog.setMessage(getResources().getString(R.string.waiting_value));
+        barProgressDialog.setProgressStyle(barProgressDialog.STYLE_HORIZONTAL);
+        barProgressDialog.setProgress(0);
+        barProgressDialog.setMax(20);
+        barProgressDialog.show();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    // Here you should write your time consuming task...
+                    while (barProgressDialog.getProgress() <= barProgressDialog.getMax()) {
+
+                        Thread.sleep(2000);
+
+                        updateBarHandler.post(new Runnable() {
+
+                            public void run() {
+
+                                barProgressDialog.incrementProgressBy(2);
+
+                            }
+
+                        });
+
+                        if (barProgressDialog.getProgress() == barProgressDialog.getMax()) {
+
+                            barProgressDialog.dismiss();
+
+                        }
+                    }
+                } catch (Exception e) {
+                }
+            }
+        }).start();
+    }*/
+
     public class LocationAsyncTask extends AsyncTask<Void, Void, Position> {
 
         private Context context;
+        private boolean isLocationFinished;
 
         public LocationAsyncTask(Context context){
             this.context = context;
@@ -74,28 +149,49 @@ public class MenuActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(Position result) {
+            isLocationFinished = true;
             Toast.makeText(context, "Position GOT !", Toast.LENGTH_LONG).show();
             mPosition = result;
-            isLocationFinished = true;
         }
 
         @Override
         protected Position doInBackground(Void... params) {
 
-            // Acquire a reference to the system Location Manager
-            LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            /** Récupère le locationManager qui gère la localisation */
+            LocationManager locManager;
+            locManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            /** Test si le gps est activé ou non */
+            if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                /** on lance notre activity (qui est une dialog) */
+                Intent localIntent = new Intent(MenuActivity.this, PermissionGPS.class);
+                localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(localIntent);
+            }
 
-            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location location;
+            /** Ensuite on demande a ecouter la localisation (dans la classe qui implémente le LocationListener*/
+            if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            } else {
+                location = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }
 
-            return new Position(location.getLatitude(), location.getLongitude());
+            if(location == null){
+                return null;
+            }
+            else {
+                return new Position(location.getLatitude(), location.getLongitude());
+            }
         }
 
         @Override
         protected void onPreExecute() {
-            isLocationFinished = false;
+            //isLocationFinished = false;
         }
 
-
+        public boolean isFinished(){
+            return isLocationFinished;
+        }
     }
 
 }
