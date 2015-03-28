@@ -170,12 +170,49 @@ public class MenuActivity extends ActionBarActivity {
 
     @OnClick (R.id.restoLocationButton)
     public void startRestLocationActivity(View view){
-        /*if(!mLocationAsyncTask.isFinished()){
-            updateBarHandler = new Handler();
-        }*/
+        if(mPosition == null){
+            Toast.makeText(this, "Location pas encore définie...", Toast.LENGTH_SHORT).show();
+        }
 
-        Intent intent = new Intent(this, RestoListActivity.class);
-        startActivity(intent);
+        else {
+
+            String url = Config.BASE_URL + "api/places/" + mPosition.getLongitude() + "/longitudes/ " + mPosition.getLatitude() + "/latitude.json";
+
+            StringRequest request = new StringRequest(url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String s) {
+
+                    try {
+                        JSONArray jarray = new JSONArray(s);
+                        int[] ids = new int[jarray.length()];
+
+                        for (int i = 0 ; i < ids.length ; i++) {
+                            ids[i] = jarray.getInt(i);
+                            Toast.makeText(MenuActivity.this, ids[i] + "", Toast.LENGTH_SHORT).show();
+                        }
+
+                        Intent intent = new Intent(MenuActivity.this, RestoListActivity.class);
+                        intent.putExtra("ids", ids);
+                        startActivity(intent);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    Toast.makeText(MenuActivity.this, volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            RequestQueue queue = Volley.newRequestQueue(MenuActivity.this, new OkHttpStack());
+            queue.add(request);
+
+        }
+
+
     }
 
     @OnClick (R.id.typeHandicapButton)
@@ -201,6 +238,7 @@ public class MenuActivity extends ActionBarActivity {
             }*/
             isLocationFinished = true;
             mPosition = result;
+
         }
 
         @Override
