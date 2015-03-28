@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 public class Restaurant implements Serializable{
 
+    private int id;
+
     private String name;
     private String description;
     private String category;
@@ -12,21 +14,32 @@ public class Restaurant implements Serializable{
     private String imageURL;
     private int rating;
     private double kilometers;
+    private ArrayList<Disability> disabilities;
 
-    public Restaurant(String name, String description, String category, String address, int rating, ArrayList<Criterion> criterions) {
+    public Restaurant(int id, String name, String description, String category, String address, int rating, ArrayList<Disability> disabilities) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.category = category;
         this.address = address;
-        this.criterions = criterions;
+        this.disabilities = disabilities;
         this.rating = rating;
     }
 
-    public Restaurant(String name, String category, int rating, double kilometers) {
+    public Restaurant(int id, String name, String category, int rating, double kilometers) {
+        this.id = id;
         this.name = name;
         this.category = category;
         this.rating = rating;
         this.kilometers = kilometers;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getRating() {
@@ -77,10 +90,21 @@ public class Restaurant implements Serializable{
         this.imageURL = imageURL;
     }
 
-    private ArrayList<Criterion> criterions;
 
     public double getKilometers() {
         return kilometers;
+    }
+
+    public void setKilometers(double kilometers) {
+        this.kilometers = kilometers;
+    }
+
+    public ArrayList<Disability> getDisabilities() {
+        return disabilities;
+    }
+
+    public void setDisabilities(ArrayList<Disability> disabilities) {
+        this.disabilities = disabilities;
     }
 
 

@@ -229,6 +229,7 @@ public class MenuActivity extends ActionBarActivity {
 
                             JSONObject jo = jarray.getJSONObject(i);
                             Restaurant res = new Restaurant(
+                                jo.getInt("id"),
                                 jo.getString("name"),
                                 jo.getString("category"),
                                 jo.getInt("points"),
