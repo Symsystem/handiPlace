@@ -48,11 +48,10 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[0]) {
             selectedButtons[0] = false;
-            motorButton.setBackgroundResource(R.drawable.button_background_selected);
+            motorButton.setBackgroundResource(R.drawable.button_background);
         } else {
             selectedButtons[0] = true;
-            motorButton.setBackgroundResource(R.drawable.button_background);
-
+            motorButton.setBackgroundResource(R.drawable.button_background_selected);
 
         }
 
@@ -63,10 +62,10 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[1]) {
             selectedButtons[1] = false;
-            lightMotorButton.setImageResource(R.drawable.nottotallydisabled);
+            lightMotorButton.setBackgroundResource(R.drawable.button_background);;
         } else {
             selectedButtons[1] = true;
-            lightMotorButton.setImageResource((R.drawable.nottotallydisabled));
+            lightMotorButton.setBackgroundResource(R.drawable.button_background_selected);
         }
 
     }
@@ -76,10 +75,10 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[2]) {
             selectedButtons[2] = false;
-            blindButton.setImageResource(R.drawable.blind);
+            blindButton.setBackgroundResource(R.drawable.button_background);;
         } else {
             selectedButtons[2] = true;
-            blindButton.setImageResource((R.drawable.blind));
+            blindButton.setBackgroundResource(R.drawable.button_background_selected);
         }
 
     }
@@ -89,10 +88,10 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[3]) {
             selectedButtons[3] = false;
-            vewProblemsButton.setImageResource(R.drawable.nottotallyblind);
+            vewProblemsButton.setBackgroundResource(R.drawable.button_background);;
         } else {
             selectedButtons[3] = true;
-            vewProblemsButton.setImageResource((R.drawable.nottotallyblind));
+            vewProblemsButton.setBackgroundResource(R.drawable.button_background_selected);
         }
 
     }
@@ -102,10 +101,10 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[4]) {
             selectedButtons[4] = false;
-            deafButton.setImageResource(R.drawable.deaf);
+            deafButton.setBackgroundResource(R.drawable.button_background);;
         } else {
             selectedButtons[4] = true;
-            deafButton.setImageResource((R.drawable.deaf));
+            deafButton.setBackgroundResource(R.drawable.button_background_selected);
         }
 
     }
@@ -115,10 +114,10 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[5]) {
             selectedButtons[5] = false;
-            hearingProblemsButton.setImageResource(R.drawable.nottotallydeaf);
+            hearingProblemsButton.setBackgroundResource(R.drawable.button_background);;
         } else {
             selectedButtons[5] = true;
-            hearingProblemsButton.setImageResource((R.drawable.nottotallydeaf));
+            hearingProblemsButton.setBackgroundResource(R.drawable.button_background_selected);
         }
 
     }
