@@ -14,17 +14,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="@string/list_item_resto_name"
-            android:textSize="18sp"
-            />
+            android:textSize="26sp"
+            android:paddingTop="7dp"
+            android:textColor="@android:color/black"
+            android:paddingLeft="10dp"/>
 
         <TextView
             android:id="@+id/resto_cat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/resto_name"
+            android:paddingTop="5dp"
             tools:text="@string/list_item_resto_type"
-            android:textSize="12sp"
-            />
+            android:textSize="18sp"
+            android:textColor="#ff505050"
+            android:paddingLeft="10dp"/>
 
         <IconTextView
             android:id="@+id/resto_rating"
@@ -33,7 +37,9 @@
             android:layout_below="@id/resto_name"
             android:layout_alignParentRight="true"
             tools:text="{fa-star} {fa-star} {fa-star}"
-            android:textSize="12sp"
+            android:textSize="20sp"
+            android:textColor="@color/accent"
+            android:paddingRight="10dp"
             />
 
     </RelativeLayout>

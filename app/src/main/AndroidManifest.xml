@@ -26,6 +26,9 @@
         <activity
             android:name=".activities.RestoListActivity"
             android:label="@string/title_activity_resto_list" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MenuActivity" />
         </activity>
     </application>
 

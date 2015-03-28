@@ -38,6 +38,12 @@ public class MenuActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
+    @OnClick (R.id.restoLocationButton)
+    public void startRestLocationActivity(View view){
+        Intent intent = new Intent(this, RestoListActivity.class);
+        startActivity(intent);
+    }
+
     @OnClick (R.id.typeHandicapButton)
     public void startDisabledTypeActivity(View view){
         Intent intent = new Intent(this, DisabledTypeActivity.class);
