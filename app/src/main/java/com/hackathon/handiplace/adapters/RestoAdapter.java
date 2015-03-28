@@ -52,8 +52,6 @@ public class RestoAdapter extends ArrayAdapter<Restaurant> {
             holder.category = (TextView) convertView.findViewById(R.id.resto_cat);
             holder.rating = (IconTextView) convertView.findViewById(R.id.resto_rating);
             convertView.setTag(holder);
-
-
         }
 
         else {
