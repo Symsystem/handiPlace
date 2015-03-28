@@ -2,7 +2,6 @@ package com.hackathon.handiplace.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
@@ -12,7 +11,6 @@ import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.adapters.RestoAdapter;
 import com.hackathon.handiplace.classes.Restaurant;
 
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -40,8 +38,7 @@ public class RestoListActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Intent gottenIntent = getIntent();
-        Parcelable[] parcelables = gottenIntent.getParcelableArrayExtra("restos");
-        restaurants = Arrays.asList(Arrays.copyOf(parcelables, parcelables.length, Restaurant[].class));
+        restaurants = (List<Restaurant>) gottenIntent.getSerializableExtra("restos");
 
         RestoAdapter adapter = new RestoAdapter(this, restaurants);
         listView.setAdapter(adapter);
