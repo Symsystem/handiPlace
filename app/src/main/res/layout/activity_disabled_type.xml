@@ -28,7 +28,6 @@
                     android:id="@+id/disabled_type_1"
                     android:src="@drawable/disabled_icon"
                     android:layout_weight="1"
-
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="5dp"
                     android:adjustViewBounds="true"
