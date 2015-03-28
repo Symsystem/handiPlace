@@ -85,4 +85,5 @@ public class RestoAdapter extends ArrayAdapter<Restaurant> {
         IconTextView rating;
 
     }
+
 }
