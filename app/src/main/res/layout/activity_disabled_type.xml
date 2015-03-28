@@ -22,10 +22,10 @@
             android:gravity="center_vertical">
 
             <ImageButton
+                    android:contentDescription="@string/disabled_motor_desc"
                     android:id="@+id/disabled_type_1"
                     android:src="@drawable/disabled"
                     style="@style/DisabledTypeButton"
-                    android:contentDescription="Je suis un handicapé moteur lourd"
 
                 />
 

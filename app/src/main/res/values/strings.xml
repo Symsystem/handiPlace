@@ -31,5 +31,6 @@
     <string name="internet_error">Vérifiez votre connexion!</string>
     <string name="title_activity_internet">Activer votre connexion internet</string>
     <string name="title_activity_location">LocationActivity</string>
+    <string name="disabled_motor_desc">Je suis un handicapé moteur lourd</string>
 
 </resources>
