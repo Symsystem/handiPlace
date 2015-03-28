@@ -14,7 +14,7 @@
         android:layout_height="160dp"
         android:id="@+id/header_image"
         android:layout_centerHorizontal="true"
-
+        android:contentDescription="Photo du restaurant"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true" />
 
@@ -29,6 +29,7 @@
         android:scaleType="fitCenter"
         android:background="@android:color/transparent"
         android:id="@+id/fav"
+        android:contentDescription="Mettre dans ses favoris"
         />
 
     <TextView
@@ -57,7 +58,7 @@
          android:id="@+id/resto_desc"
          />
 
-        <!--
+
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -253,7 +254,7 @@
 
           </HorizontalScrollView>
 
-        -->
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -305,6 +306,20 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/button_background"
+            android:layout_below="@id/detail_box"
+            android:text="Ecrire un avis"
+            android:textColor="@android:color/white"
+
+            />
 
     </RelativeLayout>
 

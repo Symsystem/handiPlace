@@ -25,6 +25,8 @@
                     android:id="@+id/disabled_type_1"
                     android:src="@drawable/disabled"
                     style="@style/DisabledTypeButton"
+                    android:contentDescription="Je suis un handicapé moteur lourd"
+
                 />
 
             <ImageButton

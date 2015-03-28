@@ -33,9 +33,11 @@ public class RestoDetailsActivity extends ActionBarActivity {
             public void onClick(View v) {
                 if (isFav) {
                     favView.setImageResource(R.drawable.favorisavant);
+                    favView.setContentDescription("Ajouter le restaurant dans mes favoris");
                     isFav = false;
                 } else {
                     favView.setImageResource(R.drawable.favorisapres);
+                    favView.setContentDescription("Retirer le restaurant dans mes favoris");
                     isFav = true;
                 }
             }
