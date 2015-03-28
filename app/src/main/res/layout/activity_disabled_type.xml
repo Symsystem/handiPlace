@@ -23,7 +23,7 @@
 
             <ImageButton
                     android:id="@+id/disabled_type_1"
-                    android:src="@drawable/disabled_icon"
+                    android:src="@drawable/disabled"
                     style="@style/DisabledTypeButton"
                 />
 
@@ -43,13 +43,13 @@
 
             <ImageButton
                     android:id="@+id/disabled_type_3"
-                    android:src="@drawable/blind_icon"
+                    android:src="@drawable/blind"
                     style="@style/DisabledTypeButton"
                 />
 
             <ImageButton
                     android:id="@+id/disabled_type_4"
-                    android:src="@drawable/tottotallyblind_icon"
+                    android:src="@drawable/nottotallyblind"
                     style="@style/DisabledTypeButton"
                 />
         </LinearLayout>
@@ -63,13 +63,13 @@
 
             <ImageButton
                     android:id="@+id/disabled_type_5"
-                    android:src="@drawable/deaf_icon"
+                    android:src="@drawable/deaf"
                     style="@style/DisabledTypeButton"
                 />
 
             <ImageButton
                     android:id="@+id/disabled_type_6"
-                    android:src="@drawable/nottotallydeaf_icon"
+                    android:src="@drawable/nottotallydeaf"
                     style="@style/DisabledTypeButton"
                 />
 
