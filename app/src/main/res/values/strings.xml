@@ -24,4 +24,9 @@
 
     <string name="active_GPS_title">Activer la localisation</string>
 
+    <string name="quit">Quitter</string>
+    <string name="cancel">Annuler</string>
+    <string name="ok">Ok</string>
+    <string name="internet_error">Vérifiez votre connexion!</string>
+
 </resources>

@@ -55,8 +55,6 @@ public class MenuActivity extends ActionBarActivity {
 
         login();
 
-        Toast.makeText(this, macAddress, Toast.LENGTH_LONG).show();
-
         // Vérification de l'activation de la localisation
         mLocationAsyncTask = new LocationAsyncTask(this);
         mLocationAsyncTask.execute();
@@ -97,6 +95,10 @@ public class MenuActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(Position result) {
+            if(result == null){
+                ErrorActivity error = new ErrorActivity();
+                error.show(getFragmentManager(), "error_dialog");
+            }
             isLocationFinished = true;
             mPosition = result;
         }
