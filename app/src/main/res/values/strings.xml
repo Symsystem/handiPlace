@@ -30,5 +30,6 @@
 
     <string name="internet_error">Vérifiez votre connexion!</string>
     <string name="title_activity_internet">Activer votre connexion internet</string>
+    <string name="title_activity_location">LocationActivity</string>
 
 </resources>
