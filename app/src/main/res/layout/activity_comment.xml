@@ -2,11 +2,9 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
                 tools:context="com.hackathon.handiplace.activities.CommentActivity">
+
+    <include layout="@layout/toolbar" android:id="@+id/toolbar" />
 
     <EditText
         android:layout_width="match_parent"
@@ -14,10 +12,13 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/editText"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="95dp"
-        android:hint="Entrez votre avis ici"/>
+        android:layout_below="@id/toolbar"
+        android:hint="Entrez votre avis ici"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        />
 
     <Button
         android:layout_width="match_parent"
@@ -26,7 +27,9 @@
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/button_background"/>
+        android:background="@drawable/button_background"
+        android:layout_margin="8dp"
+        />
 
 
 </RelativeLayout>
