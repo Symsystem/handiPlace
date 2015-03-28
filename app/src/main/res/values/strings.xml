@@ -17,5 +17,6 @@
 
     <string name="no_data_resto_list">No data to display</string>
     <string name="title_activity_opinion">OpinionActivity</string>
+    <string name="title_activity_resto_details">RestoDetailsActivity</string>
 
 </resources>
