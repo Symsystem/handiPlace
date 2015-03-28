@@ -73,8 +73,18 @@
                     style="@style/DisabledTypeButton"
                 />
 
-
         </LinearLayout>
+        
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:layout_margin="8dp"
+            android:text="Continuer"
+            android:textColor="@android:color/white"
+
+            />
+        
     </LinearLayout>
 
 </LinearLayout>
