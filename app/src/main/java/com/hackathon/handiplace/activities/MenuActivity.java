@@ -30,6 +30,8 @@ public class MenuActivity extends ActionBarActivity {
     @InjectView(R.id.typeHandicapButton) Button mTypeHandicap;
 
     private Position mPosition;
+    private boolean isLocationFinished;
+    private LocationAsyncTask mLocationAsyncTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +44,8 @@ public class MenuActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Position currentPosition;
-        LocationAsyncTask loc = new LocationAsyncTask(this);
-        loc.execute();
+        mLocationAsyncTask = new LocationAsyncTask(this);
+        mLocationAsyncTask.execute();
     }
 
 
@@ -73,6 +74,7 @@ public class MenuActivity extends ActionBarActivity {
         protected void onPostExecute(Position result) {
             Toast.makeText(context, "Position GOT !", Toast.LENGTH_LONG).show();
             mPosition = result;
+            isLocationFinished = true;
         }
 
         @Override
@@ -83,14 +85,12 @@ public class MenuActivity extends ActionBarActivity {
 
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-            //locationManager.requestLocationUpdates(provider, 1000, 10, locationListener);
-
             return new Position(location.getLatitude(), location.getLongitude());
         }
 
         @Override
         protected void onPreExecute() {
-
+            isLocationFinished = false;
         }
 
 
