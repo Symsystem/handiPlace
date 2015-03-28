@@ -61,7 +61,7 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[1]) {
             selectedButtons[1] = false;
-            lightMotorButton.setImageResource(R.drawable.nottotallyblind);
+            lightMotorButton.setImageResource(R.drawable.nottotallydisabled);
         } else {
             selectedButtons[1] = true;
             lightMotorButton.setImageResource((R.drawable.nottotallydisabled));
