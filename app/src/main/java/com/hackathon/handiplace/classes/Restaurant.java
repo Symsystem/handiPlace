@@ -1,8 +1,11 @@
 package com.hackathon.handiplace.classes;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class Restaurant {
+public class Restaurant implements Parcelable{
 
     private String name;
     private String description;
@@ -81,4 +84,36 @@ public class Restaurant {
     public double getKilometers() {
         return kilometers;
     }
+
+    private Restaurant(Parcel in){
+        name = in.readString();
+        category = in.readString();
+        rating = in.readInt();
+        kilometers = in.readDouble();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(category);
+        dest.writeInt(rating);
+        dest.writeDouble(kilometers);
+    }
+
+    public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
+        @Override
+        public Restaurant createFromParcel(Parcel source) {
+            return new Restaurant(source);
+        }
+
+        @Override
+        public Restaurant[] newArray(int size) {
+            return new Restaurant[size];
+        }
+    };
 }
