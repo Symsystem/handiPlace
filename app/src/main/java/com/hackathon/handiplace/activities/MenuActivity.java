@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.hackathon.handiplace.R;
@@ -24,10 +24,12 @@ public class MenuActivity extends ActionBarActivity {
 
     Toolbar toolbar;
 
-    @InjectView(R.id.restoLocationButton) Button mRestoLocation;
-    @InjectView(R.id.restoListButton) Button mRestoList;
-    @InjectView(R.id.restoFavorisButton) Button mRestoFavoris;
-    @InjectView(R.id.typeHandicapButton) Button mTypeHandicap;
+    @InjectView(R.id.restoLocationButton)
+    ImageButton mRestoLocation;
+    @InjectView(R.id.restoFavorisButton)
+    ImageButton mRestoFavoris;
+    @InjectView(R.id.typeHandicapButton)
+    ImageButton mTypeHandicap;
 
     private Position mPosition;
     private boolean isLocationFinished;
