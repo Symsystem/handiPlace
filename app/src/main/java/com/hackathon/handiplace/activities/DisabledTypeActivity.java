@@ -48,10 +48,12 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[0]) {
             selectedButtons[0] = false;
-            motorButton.setImageResource(R.drawable.disabled);
+            motorButton.setBackgroundResource(R.drawable.button_background_selected);
         } else {
             selectedButtons[0] = true;
-            motorButton.setImageResource((R.drawable.disabled));
+            motorButton.setBackgroundResource(R.drawable.button_background);
+
+
         }
 
     }
