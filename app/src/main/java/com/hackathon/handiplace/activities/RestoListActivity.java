@@ -44,6 +44,8 @@ public class RestoListActivity extends ActionBarActivity {
         RestoAdapter adapter = new RestoAdapter(this, restaurants);
         listView.setAdapter(adapter);
         listView.setEmptyView(empty);
+
+
     }
 
 }
