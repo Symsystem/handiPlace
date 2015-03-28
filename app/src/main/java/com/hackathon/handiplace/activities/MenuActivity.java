@@ -19,9 +19,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
-import com.hackathon.handiplace.classes.Utils;
 import com.hackathon.handiplace.classes.Position;
 import com.hackathon.handiplace.classes.Restaurant;
+import com.hackathon.handiplace.classes.Utils;
 import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PostRequest;
 
@@ -220,12 +220,10 @@ public class MenuActivity extends ActionBarActivity {
                             );
 
                             restaurants.add(res);
-
                         }
 
-                        Toast.makeText(MenuActivity.this, restaurants.size() + "", Toast.LENGTH_SHORT).show();
-
                         Intent intent = new Intent(MenuActivity.this, RestoListActivity.class);
+
                         startActivity(intent);
 
                     } catch (JSONException e) {
