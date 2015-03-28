@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">handiPlace</string>
+    <string name="app_name">HandiPlace</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -16,12 +16,17 @@
     <string name="type_handicap_button">Mon handicap</string>
 
     <string name="no_data_resto_list">No data to display</string>
-    <string name="title_activity_opinion">OpinionActivity</string>
-    <string name="title_activity_resto_details">RestoDetailsActivity</string>
+    <string name="title_activity_opinion">Donner un avis</string>
+    <string name="title_activity_resto_details">Détails du restaurant</string>
 
     <string name="waiting_title">Veuillez patienter</string>
     <string name="waiting_value">Téléchargement des données...</string>
 
     <string name="active_GPS_title">Activer la localisation</string>
+
+    <string name="quit">Quitter</string>
+    <string name="cancel">Annuler</string>
+    <string name="ok">Ok</string>
+    <string name="internet_error">Vérifiez votre connexion!</string>
 
 </resources>
