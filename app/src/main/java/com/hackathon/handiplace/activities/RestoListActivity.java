@@ -10,7 +10,6 @@ import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.adapters.RestoAdapter;
 import com.hackathon.handiplace.classes.Restaurant;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -37,14 +36,6 @@ public class RestoListActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        restaurants = new ArrayList<Restaurant>();
-
-        restaurants.add(new Restaurant("Au délice", "Venez vous régaler chez nous!", "Frites",
-                "Impasse de la Fidélité 4A 1000 Ville de Bruxelles", 2, null));
-        restaurants.add(new Restaurant("Pépé café", "Pour bien manger !", "Italien",
-                "Rue de Tabora 11 1000 Ville de Bruxelles", 3, null));
-        restaurants.add(new Restaurant("Xu ji", "Venez vous régaler chez nous!", "Chinois",
-                "Rue des Poissonniers 5 1000 Ville de Bruxelles", 1, null));
 
         RestoAdapter adapter = new RestoAdapter(this, restaurants);
         listView.setAdapter(adapter);

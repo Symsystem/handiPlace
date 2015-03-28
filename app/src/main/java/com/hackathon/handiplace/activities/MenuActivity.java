@@ -2,15 +2,11 @@ package com.hackathon.handiplace.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -24,9 +20,7 @@ import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.classes.Config;
 import com.hackathon.handiplace.classes.Position;
-import com.hackathon.handiplace.request.GPSTracker;
 import com.hackathon.handiplace.request.OkHttpStack;
-import com.hackathon.handiplace.request.PermissionGPS;
 import com.hackathon.handiplace.request.PostRequest;
 
 import org.json.JSONArray;
@@ -62,16 +56,10 @@ public class MenuActivity extends ActionBarActivity {
 
         ButterKnife.inject(this);
 
-        Intent intent = new Intent(this, RestoDetailsActivity.class);
-        startActivity(intent);
-
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Intent intent = new Intent(MenuActivity.this, InternetActivity.class);
-        startActivity(intent);
 
         if(!HandiPlaceApplication.user.isConnected()) {
             login();
@@ -178,13 +166,14 @@ public class MenuActivity extends ActionBarActivity {
 
     @OnClick (R.id.restoLocationButton)
     public void startRestLocationActivity(View view){
-        if(mPosition == null){
-            Toast.makeText(this, "Location pas encore définie...", Toast.LENGTH_SHORT).show();
-        }
+        // if(mPosition == null){
+        //     Toast.makeText(this, "Location pas encore définie...", Toast.LENGTH_SHORT).show();
+        // }
 
-        else {
-
-            String url = Config.BASE_URL + "api/places/" + mPosition.getLongitude() + "/longitudes/ " + mPosition.getLatitude() + "/latitude.json";
+        // else {
+            // TODO
+            // String url = Config.BASE_URL + "api/places/" + mPosition.getLongitude() + "/longitudes/ " + mPosition.getLatitude() + "/latitude.json";
+            String url = Config.BASE_URL + "api/places/" + 50 + "/longitudes/" + 4 + "/latitude.json";
 
             StringRequest request = new StringRequest(url, new Response.Listener<String>() {
                 @Override
@@ -196,7 +185,6 @@ public class MenuActivity extends ActionBarActivity {
 
                         for (int i = 0 ; i < ids.length ; i++) {
                             ids[i] = jarray.getInt(i);
-                            Toast.makeText(MenuActivity.this, ids[i] + "", Toast.LENGTH_SHORT).show();
                         }
 
                         Intent intent = new Intent(MenuActivity.this, RestoListActivity.class);
@@ -218,7 +206,7 @@ public class MenuActivity extends ActionBarActivity {
             RequestQueue queue = Volley.newRequestQueue(MenuActivity.this, new OkHttpStack());
             queue.add(request);
 
-        }
+        // }
 
 
     }
