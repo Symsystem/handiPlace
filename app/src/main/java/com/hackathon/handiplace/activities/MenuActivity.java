@@ -28,6 +28,7 @@ import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.classes.Config;
 import com.hackathon.handiplace.classes.Position;
+import com.hackathon.handiplace.classes.User;
 import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PermissionGPS;
 import com.hackathon.handiplace.request.PostRequest;
@@ -70,8 +71,9 @@ public class MenuActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        if(HandiPlaceApplication.user == null)
+        if(HandiPlaceApplication.user == null) {
             login();
+        }
 
         // Vérification de l'activation de la localisation
         mLocationAsyncTask = new LocationAsyncTask(this);
@@ -94,7 +96,8 @@ public class MenuActivity extends ActionBarActivity {
                     if (userJson.has("response")) {
 
                         if (userJson.getBoolean("response")) {
-                            int id = userJson.getInt("id");
+                            HandiPlaceApplication.user = new User();
+                            HandiPlaceApplication.user.setId(userJson.getInt("id"));
                         }
                         else {
                             // Renvoie une requête pour créer un compte
@@ -134,6 +137,7 @@ public class MenuActivity extends ActionBarActivity {
                     if (userJSON.has("response")) {
 
                         if (userJSON.getBoolean("response")) {
+                            HandiPlaceApplication.user = new User();
                             HandiPlaceApplication.user.setId(userJSON.getInt("id"));
                         }
                         else {

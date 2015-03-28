@@ -162,7 +162,8 @@ public class DisabledTypeActivity extends ActionBarActivity {
         Map params = new HashMap();
         params.put("idDisability", result);
 
-        String url = Config.BASE_URL + "users/" + HandiPlaceApplication.user.getId() + "/disabilities";
+        String url = Config.BASE_URL + "api/users/" + HandiPlaceApplication.user.getId() + "/disabilities.json";
+        Toast.makeText(this, url, Toast.LENGTH_LONG).show();
 
         PostRequest request = new PostRequest(url, params, new Response.Listener<String>() {
             @Override
