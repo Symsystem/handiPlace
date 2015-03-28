@@ -1,8 +1,9 @@
 package com.hackathon.handiplace.classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Restaurant {
+public class Restaurant implements Serializable{
 
     private String name;
     private String description;
@@ -81,4 +82,8 @@ public class Restaurant {
     public double getKilometers() {
         return kilometers;
     }
+
+
+
+
 }

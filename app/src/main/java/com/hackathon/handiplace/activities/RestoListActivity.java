@@ -11,7 +11,6 @@ import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.adapters.RestoAdapter;
 import com.hackathon.handiplace.classes.Restaurant;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -38,11 +37,8 @@ public class RestoListActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        restaurants = new ArrayList<>();
-
         Intent gottenIntent = getIntent();
         restaurants = (List<Restaurant>) gottenIntent.getSerializableExtra("restos");
-
 
         RestoAdapter adapter = new RestoAdapter(this, restaurants);
         listView.setAdapter(adapter);
