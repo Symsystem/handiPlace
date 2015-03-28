@@ -74,6 +74,54 @@ public class MenuActivity extends ActionBarActivity {
         //mLocationAsyncTask.execute();
     }
 
+    @OnClick(R.id.restoFavorisButton)
+    public void favRestos(View view) {
+
+        String url = Utils.BASE_URL + "api/favorites/" + HandiPlaceApplication.user.getId() + "/longitudes/" + mPosition.getLongitude() + "/latitudes/" + mPosition.getLatitude() + "/get.json";
+
+        StringRequest request = new StringRequest(url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+
+                ArrayList<Restaurant> restaurants = new ArrayList<>();
+
+                try {
+                    JSONArray jarray = new JSONArray(s);
+
+                    for (int i = 0 ; i < jarray.length() ; i++) {
+
+                        JSONObject jo = jarray.getJSONObject(i);
+                        Restaurant res = new Restaurant(
+                                jo.getString("name"),
+                                jo.getString("category"),
+                                jo.getInt("points"),
+                                (jo.getDouble("distance") / 1000)
+                        );
+
+                        restaurants.add(res);
+                    }
+
+                    Intent intent = new Intent(MenuActivity.this, RestoListActivity.class);
+                    intent.putExtra("restos", restaurants);
+                    startActivity(intent);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(MenuActivity.this, "Error : " + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(MenuActivity.this, new OkHttpStack());
+        queue.add(request);
+
+    }
+
     private void login() {
         WifiManager manager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         WifiInfo info = manager.getConnectionInfo();
@@ -171,7 +219,7 @@ public class MenuActivity extends ActionBarActivity {
     @OnClick (R.id.restoLocationButton)
     public void startRestLocationActivity(View view){
 
-            String url = Utils.BASE_URL + "api/places/" + 50 + "/longitudes/" + 4 + "/latitude.json";
+            String url = Utils.BASE_URL + "api/places/" + mPosition.getLongitude() + "/longitudes/" + mPosition.getLatitude() + "/latitude.json";
 
             StringRequest request = new StringRequest(url, new Response.Listener<String>() {
                 @Override
