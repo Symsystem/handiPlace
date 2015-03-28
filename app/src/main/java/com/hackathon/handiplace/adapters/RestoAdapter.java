@@ -47,15 +47,16 @@ public class RestoAdapter extends ArrayAdapter<Restaurant> {
 
         Restaurant restaurant = restaurants.get(position);
 
-        String nameStr = bor.getName();
-        double mo = (Math.round(bor.getMoney() * 100.0) / 100.0);
-        String moneyStr = mo + LoanReminderApplication.currency;
-
-        holder.name.setText(nameStr);
-        holder.category.setText(moneyStr);
+        holder.name.setText(restaurant.getName());
+        holder.category.setText(restaurant.getCategory());
+        holder.rating.setText(calculRate(position));
 
         return convertView;
 
+    }
+
+    private String calculRate(int position) {
+        return "{fa-star}{fa-star}{fa-star}";
     }
 
     private static class ViewHolder {
