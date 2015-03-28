@@ -124,7 +124,7 @@ public class MenuActivity extends ActionBarActivity {
     private void createUser(){
         Map<String, String> params = new HashMap<String, String>();
         params.put("macAddress", macAddress);
-        String URL = Config.BASE_URL + "apis/users.json";
+        String URL = Config.BASE_URL + "api/users.json";
 
         PostRequest requestAddUser = new PostRequest(URL, params, new Response.Listener<String>() {
             @Override
