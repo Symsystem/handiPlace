@@ -68,10 +68,6 @@ public class MenuActivity extends ActionBarActivity {
             login();
         }
 
-
-        // Vérification de l'activation de la localisation
-        //mLocationAsyncTask = new LocationAsyncTask(this);
-        //mLocationAsyncTask.execute();
     }
 
     @OnClick(R.id.restoFavorisButton)

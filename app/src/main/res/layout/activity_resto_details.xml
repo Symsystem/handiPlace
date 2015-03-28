@@ -57,6 +57,8 @@
          android:id="@+id/resto_desc"
          />
 
+        <!--
+
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -249,9 +251,60 @@
 
                 </LinearLayout>
 
-
           </HorizontalScrollView>
 
+        -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/detail_box"
+            android:layout_below="@id/resto_desc"
+            android:orientation="vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plus"
+                android:textColor="@color/primary_text"
+                android:textSize="24sp"
+                android:paddingLeft="8dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/plus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+
+                </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Moins"
+                android:textColor="@color/primary_text"
+                android:textSize="24sp"
+                android:paddingLeft="8dp"
+                />
+
+
+            <LinearLayout
+                android:id="@+id/minus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                >
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </RelativeLayout>
 
