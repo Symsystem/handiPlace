@@ -82,7 +82,7 @@
             android:layout_margin="8dp"
             android:text="Continuer"
             android:textColor="@android:color/white"
-
+            android:id="@+id/continue_button"
             />
         
     </LinearLayout>
