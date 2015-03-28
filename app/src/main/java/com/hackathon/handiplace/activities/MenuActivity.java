@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,6 +40,7 @@ public class MenuActivity extends ActionBarActivity {
 
     private Position mPosition;
     private LocationAsyncTask mLocationAsyncTask;
+    private String macAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +53,21 @@ public class MenuActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        login();
+
+        Toast.makeText(this, macAddress, Toast.LENGTH_LONG).show();
+
+        // Vérification de l'activation de la localisation
         mLocationAsyncTask = new LocationAsyncTask(this);
         mLocationAsyncTask.execute();
     }
 
+    private void login() {
+        WifiManager manager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = manager.getConnectionInfo();
+        macAddress = info.getMacAddress();
+
+    }
 
 
     @OnClick (R.id.restoLocationButton)
@@ -72,72 +86,6 @@ public class MenuActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    /*ProgressDialog barProgressDialog;
-    Handler updateBarHandler;
-
-    public void launchRingDialog(View view) {
-        final ProgressDialog ringProgressDialog = ProgressDialog.show(MenuActivity.this,
-                getResources().getString(R.string.waiting_title),
-                getResources().getString(R.string.waiting_value), true);
-
-        ringProgressDialog.setCancelable(true);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // Here you should write your time consuming task...
-                    // Let the progress ring for 10 seconds...
-                    Thread.sleep(10000);
-                } catch (Exception e) {
-
-                }
-                ringProgressDialog.dismiss();
-            }
-        }).start();
-    }
-
-    public void launchBarDialog(View view) {
-        barProgressDialog = new ProgressDialog(MenuActivity.this);
-
-        barProgressDialog.setTitle(getResources().getString(R.string.waiting_title));
-        barProgressDialog.setMessage(getResources().getString(R.string.waiting_value));
-        barProgressDialog.setProgressStyle(barProgressDialog.STYLE_HORIZONTAL);
-        barProgressDialog.setProgress(0);
-        barProgressDialog.setMax(20);
-        barProgressDialog.show();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    // Here you should write your time consuming task...
-                    while (barProgressDialog.getProgress() <= barProgressDialog.getMax()) {
-
-                        Thread.sleep(2000);
-
-                        updateBarHandler.post(new Runnable() {
-
-                            public void run() {
-
-                                barProgressDialog.incrementProgressBy(2);
-
-                            }
-
-                        });
-
-                        if (barProgressDialog.getProgress() == barProgressDialog.getMax()) {
-
-                            barProgressDialog.dismiss();
-
-                        }
-                    }
-                } catch (Exception e) {
-                }
-            }
-        }).start();
-    }*/
-
     public class LocationAsyncTask extends AsyncTask<Void, Void, Position> {
 
         private Context context;
@@ -150,7 +98,6 @@ public class MenuActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Position result) {
             isLocationFinished = true;
-            Toast.makeText(context, "Position GOT !", Toast.LENGTH_LONG).show();
             mPosition = result;
         }
 
