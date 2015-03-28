@@ -18,7 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
-import com.hackathon.handiplace.classes.Config;
+import com.hackathon.handiplace.classes.Utils;
 import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PostRequest;
 
@@ -38,6 +38,8 @@ public class DisabledTypeActivity extends ActionBarActivity {
     boolean[] selectedButtons;
 
     Toolbar mToolbar;
+
+    ImageButton[] mButtons;
 
     @InjectView(R.id.disabled_type_1)
     ImageButton motorButton;
@@ -79,7 +81,7 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[1]) {
             selectedButtons[1] = false;
-            lightMotorButton.setBackgroundResource(R.drawable.button_background);;
+            lightMotorButton.setBackgroundResource(R.drawable.button_background);
         } else {
             selectedButtons[1] = true;
             lightMotorButton.setBackgroundResource(R.drawable.button_background_selected);
@@ -92,7 +94,7 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[2]) {
             selectedButtons[2] = false;
-            blindButton.setBackgroundResource(R.drawable.button_background);;
+            blindButton.setBackgroundResource(R.drawable.button_background);
         } else {
             selectedButtons[2] = true;
             blindButton.setBackgroundResource(R.drawable.button_background_selected);
@@ -105,7 +107,7 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[3]) {
             selectedButtons[3] = false;
-            vewProblemsButton.setBackgroundResource(R.drawable.button_background);;
+            vewProblemsButton.setBackgroundResource(R.drawable.button_background);
         } else {
             selectedButtons[3] = true;
             vewProblemsButton.setBackgroundResource(R.drawable.button_background_selected);
@@ -118,7 +120,7 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[4]) {
             selectedButtons[4] = false;
-            deafButton.setBackgroundResource(R.drawable.button_background);;
+            deafButton.setBackgroundResource(R.drawable.button_background);
         } else {
             selectedButtons[4] = true;
             deafButton.setBackgroundResource(R.drawable.button_background_selected);
@@ -131,7 +133,7 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
         if (selectedButtons[5]) {
             selectedButtons[5] = false;
-            hearingProblemsButton.setBackgroundResource(R.drawable.button_background);;
+            hearingProblemsButton.setBackgroundResource(R.drawable.button_background);
         } else {
             selectedButtons[5] = true;
             hearingProblemsButton.setBackgroundResource(R.drawable.button_background_selected);
@@ -178,7 +180,7 @@ public class DisabledTypeActivity extends ActionBarActivity {
         Map params = new HashMap();
         params.put("idDisability", result);
 
-        String url = Config.BASE_URL + "api/users/" + HandiPlaceApplication.user.getId() + "/disabilities.json";
+        String url = Utils.BASE_URL + "api/users/" + HandiPlaceApplication.user.getId() + "/disabilities.json";
 
         PostRequest request = new PostRequest(url, params, new Response.Listener<String>() {
             @Override
@@ -190,9 +192,12 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
                         if (userJson.getBoolean("response")) {
 
-                            for(int i = 0; i<Config.idHandicap.size(); i++){
+                            for(int i = 0; i< Utils.idHandicap.size(); i++){
                                 if(selectedButtons[i])
                                     HandiPlaceApplication.user.setDisability(true, i);
+                                else
+                                    HandiPlaceApplication.user.setDisability(false, i);
+
                             }
                         }
                         else {
@@ -228,17 +233,25 @@ public class DisabledTypeActivity extends ActionBarActivity {
         setContentView(R.layout.activity_disabled_type);
         ButterKnife.inject(this);
 
+        mButtons = new ImageButton[Utils.idHandicap.size()];
+        mButtons[0] = motorButton;
+        mButtons[1] = lightMotorButton;
+        mButtons[2] = blindButton;
+        mButtons[3] = vewProblemsButton;
+        mButtons[4] = deafButton;
+        mButtons[5] = hearingProblemsButton;
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        selectedButtons = new boolean[Config.idHandicap.size()];
+        selectedButtons = new boolean[Utils.idHandicap.size()];
 
-        for (int i = 0; i<Config.idHandicap.size(); i++){
+        for (int i = 0; i< Utils.idHandicap.size(); i++){
            if(HandiPlaceApplication.user.getDisabilities()[i]){
                selectedButtons[i] = true;
-               deafButton.setBackgroundResource(R.drawable.button_background_selected);
+               mButtons[i].setBackgroundResource(R.drawable.button_background_selected);
            }
         }
 

@@ -2,14 +2,12 @@ package com.hackathon.handiplace.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -21,16 +19,17 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
-import com.hackathon.handiplace.classes.Config;
+import com.hackathon.handiplace.classes.Utils;
 import com.hackathon.handiplace.classes.Position;
+import com.hackathon.handiplace.classes.Restaurant;
 import com.hackathon.handiplace.request.OkHttpStack;
-import com.hackathon.handiplace.request.PermissionGPS;
 import com.hackathon.handiplace.request.PostRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,7 +50,6 @@ public class MenuActivity extends ActionBarActivity {
     ImageButton mTypeHandicap;
 
     private Position mPosition;
-    private LocationAsyncTask mLocationAsyncTask;
     private String macAddress;
 
     @Override
@@ -65,13 +63,36 @@ public class MenuActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        if(!Utils.isNetworkAvailable(this))
+        {
+            Log.d("Ceci n'est pas normal", "");
+            Intent intent = new Intent(MenuActivity.this, InternetActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+
+        if(!Utils.isLocationEnabled(this) && !HandiPlaceApplication.isLocated){
+            Intent intent = new Intent(MenuActivity.this, LocationActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        else if(!HandiPlaceApplication.isLocated){
+            mPosition = Utils.getLocation(this);
+            if(mPosition != null){
+                HandiPlaceApplication.isLocated = true;
+            }
+        }
+
         if(!HandiPlaceApplication.user.isConnected()) {
             login();
         }
 
+
         // Vérification de l'activation de la localisation
-        mLocationAsyncTask = new LocationAsyncTask(this);
-        mLocationAsyncTask.execute();
+        //mLocationAsyncTask = new LocationAsyncTask(this);
+        //mLocationAsyncTask.execute();
     }
 
     private void login() {
@@ -79,7 +100,7 @@ public class MenuActivity extends ActionBarActivity {
         WifiInfo info = manager.getConnectionInfo();
         macAddress = info.getMacAddress();
 
-        String URL = Config.BASE_URL + "api/users/" + macAddress + ".json";
+        String URL = Utils.BASE_URL + "api/users/" + macAddress + ".json";
         StringRequest request = new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
@@ -97,7 +118,7 @@ public class MenuActivity extends ActionBarActivity {
                             HandiPlaceApplication.user.setId(userJson.getInt("id"));
                             JSONArray disArray = userJson.getJSONArray("disabilities");
                             for(int i = 0; i<disArray.length(); i++){
-                                HandiPlaceApplication.user.setDisability(true, Config.idHandicap.get(disArray.getInt(i)));
+                                HandiPlaceApplication.user.setDisability(true, Utils.idHandicap.get(disArray.getInt(i)));
                             }
                         }
                         else {
@@ -128,7 +149,7 @@ public class MenuActivity extends ActionBarActivity {
     private void createUser(){
         Map<String, String> params = new HashMap<String, String>();
         params.put("macAddress", macAddress);
-        String URL = Config.BASE_URL + "api/users.json";
+        String URL = Utils.BASE_URL + "api/users.json";
 
         PostRequest requestAddUser = new PostRequest(URL, params, new Response.Listener<String>() {
             @Override
@@ -142,7 +163,7 @@ public class MenuActivity extends ActionBarActivity {
                             HandiPlaceApplication.user.setId(userJSON.getInt("id"));
                             JSONArray disArray = userJSON.getJSONArray("disabilities");
                             for(int i = 0; i<disArray.length(); i++){
-                                HandiPlaceApplication.user.setDisability(true, Config.idHandicap.get(disArray.getInt(i)));
+                                HandiPlaceApplication.user.setDisability(true, Utils.idHandicap.get(disArray.getInt(i)));
                             }
                         }
                         else {
@@ -170,29 +191,41 @@ public class MenuActivity extends ActionBarActivity {
 
     @OnClick (R.id.restoLocationButton)
     public void startRestLocationActivity(View view){
-        if(mPosition == null){
-            Toast.makeText(this, "Location pas encore définie...", Toast.LENGTH_SHORT).show();
-        }
+        // if(mPosition == null){
+        //     Toast.makeText(this, "Location pas encore définie...", Toast.LENGTH_SHORT).show();
+        // }
 
-        else {
-
-            String url = Config.BASE_URL + "api/places/" + mPosition.getLongitude() + "/longitudes/ " + mPosition.getLatitude() + "/latitude.json";
+        // else {
+            // TODO
+            // String url = Config.BASE_URL + "api/places/" + mPosition.getLongitude() + "/longitudes/ " + mPosition.getLatitude() + "/latitude.json";
+            String url = Utils.BASE_URL + "api/places/" + 50 + "/longitudes/" + 4 + "/latitude.json";
 
             StringRequest request = new StringRequest(url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String s) {
 
+                    ArrayList<Restaurant> restaurants = new ArrayList<>();
+
                     try {
                         JSONArray jarray = new JSONArray(s);
-                        int[] ids = new int[jarray.length()];
 
-                        for (int i = 0 ; i < ids.length ; i++) {
-                            ids[i] = jarray.getInt(i);
-                            Toast.makeText(MenuActivity.this, ids[i] + "", Toast.LENGTH_SHORT).show();
+                        for (int i = 0 ; i < jarray.length() ; i++) {
+
+                            JSONObject jo = jarray.getJSONObject(i);
+                            Restaurant res = new Restaurant(
+                                jo.getString("name"),
+                                jo.getString("category"),
+                                jo.getInt("points"),
+                                (jo.getDouble("distance") / 1000)
+                            );
+
+                            restaurants.add(res);
+
                         }
 
+                        Toast.makeText(MenuActivity.this, restaurants.size() + "", Toast.LENGTH_SHORT).show();
+
                         Intent intent = new Intent(MenuActivity.this, RestoListActivity.class);
-                        intent.putExtra("ids", ids);
                         startActivity(intent);
 
                     } catch (JSONException e) {
@@ -210,7 +243,7 @@ public class MenuActivity extends ActionBarActivity {
             RequestQueue queue = Volley.newRequestQueue(MenuActivity.this, new OkHttpStack());
             queue.add(request);
 
-        }
+        // }
 
 
     }
@@ -219,66 +252,6 @@ public class MenuActivity extends ActionBarActivity {
     public void startDisabledTypeActivity(View view){
         Intent intent = new Intent(this, DisabledTypeActivity.class);
         startActivity(intent);
-    }
-
-    public class LocationAsyncTask extends AsyncTask<Void, Void, Position> {
-
-        private Context context;
-        private boolean isLocationFinished;
-
-        public LocationAsyncTask(Context context){
-            this.context = context;
-        }
-
-        @Override
-        protected void onPostExecute(Position result) {
-            /*if(result == null){
-                ErrorActivity error = new ErrorActivity();
-                error.show(getFragmentManager(), "error_dialog");
-            }*/
-            isLocationFinished = true;
-            mPosition = result;
-
-        }
-
-        @Override
-        protected Position doInBackground(Void... params) {
-
-            /** Récupère le locationManager qui gère la localisation */
-            LocationManager locManager;
-            locManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-            /** Test si le gps est activé ou non */
-            if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                /** on lance notre activity (qui est une dialog) */
-                Intent localIntent = new Intent(MenuActivity.this, PermissionGPS.class);
-                localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(localIntent);
-            }
-
-            Location location;
-            /** Ensuite on demande a ecouter la localisation (dans la classe qui implémente le LocationListener*/
-            if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            } else {
-                location = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            }
-
-            if(location == null){
-                return null;
-            }
-            else {
-                return new Position(location.getLatitude(), location.getLongitude());
-            }
-        }
-
-        @Override
-        protected void onPreExecute() {
-            //isLocationFinished = false;
-        }
-
-        public boolean isFinished(){
-            return isLocationFinished;
-        }
     }
 
 }
