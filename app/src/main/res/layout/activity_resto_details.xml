@@ -20,5 +20,19 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:layout_below="@+id/scrollView"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/pouce_vert"
+        android:adjustViewBounds="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Au Bon Pouce"
+        android:id="@+id/textView"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textIsSelectable="false"
+        android:textSize="30dp"
+        android:textColor="@android:color/black"/>
 </RelativeLayout>
