@@ -18,7 +18,7 @@
             />
 
         <TextView
-            android:id="@+id/resto_type"
+            android:id="@+id/resto_cat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/resto_name"
@@ -26,13 +26,13 @@
             android:textSize="12sp"
             />
 
-        <TextView
+        <IconTextView
             android:id="@+id/resto_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/resto_name"
             android:layout_alignParentRight="true"
-            tools:text="{icon-star} {icon-star} {icon-star}"
+            tools:text="{fa-star} {fa-star} {fa-star}"
             android:textSize="12sp"
             />
 
