@@ -104,7 +104,7 @@ public class MenuActivity extends ActionBarActivity {
                             createUser();
                         }
                     } else {
-                        Log.i("Ici non plus ! :", "");
+                        // Erreur !
                     }
 
                 } catch (JSONException e) {
