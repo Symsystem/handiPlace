@@ -1,8 +1,5 @@
 package com.hackathon.handiplace.activities;
 
-import android.app.AlertDialog;
-import android.app.Application;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -11,10 +8,8 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -28,12 +23,11 @@ import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.classes.Config;
 import com.hackathon.handiplace.classes.Position;
-import com.hackathon.handiplace.classes.User;
 import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PermissionGPS;
 import com.hackathon.handiplace.request.PostRequest;
 
-import org.apache.http.util.ExceptionUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -71,7 +65,7 @@ public class MenuActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        if(HandiPlaceApplication.user == null) {
+        if(!HandiPlaceApplication.user.isConnected()) {
             login();
         }
 
@@ -96,8 +90,15 @@ public class MenuActivity extends ActionBarActivity {
                     if (userJson.has("response")) {
 
                         if (userJson.getBoolean("response")) {
-                            HandiPlaceApplication.user = new User();
+
+                            Toast.makeText(MenuActivity.this, "REPONSE", Toast.LENGTH_SHORT).show();
+
+                            HandiPlaceApplication.user.setConnected(true);
                             HandiPlaceApplication.user.setId(userJson.getInt("id"));
+                            JSONArray disArray = userJson.getJSONArray("disabilities");
+                            for(int i = 0; i<disArray.length(); i++){
+                                HandiPlaceApplication.user.setDisability(true, Config.idHandicap.get(disArray.getInt(i)));
+                            }
                         }
                         else {
                             // Renvoie une requête pour créer un compte
@@ -115,7 +116,7 @@ public class MenuActivity extends ActionBarActivity {
                     new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                Toast.makeText(MenuActivity.this, volleyError.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
 
@@ -137,8 +138,12 @@ public class MenuActivity extends ActionBarActivity {
                     if (userJSON.has("response")) {
 
                         if (userJSON.getBoolean("response")) {
-                            HandiPlaceApplication.user = new User();
+                            HandiPlaceApplication.user.setConnected(true);
                             HandiPlaceApplication.user.setId(userJSON.getInt("id"));
+                            JSONArray disArray = userJSON.getJSONArray("disabilities");
+                            for(int i = 0; i<disArray.length(); i++){
+                                HandiPlaceApplication.user.setDisability(true, Config.idHandicap.get(disArray.getInt(i)));
+                            }
                         }
                         else {
                             // Erreur !
@@ -165,12 +170,49 @@ public class MenuActivity extends ActionBarActivity {
 
     @OnClick (R.id.restoLocationButton)
     public void startRestLocationActivity(View view){
-        /*if(!mLocationAsyncTask.isFinished()){
-            updateBarHandler = new Handler();
-        }*/
+        if(mPosition == null){
+            Toast.makeText(this, "Location pas encore définie...", Toast.LENGTH_SHORT).show();
+        }
 
-        Intent intent = new Intent(this, RestoListActivity.class);
-        startActivity(intent);
+        else {
+
+            String url = Config.BASE_URL + "api/places/" + mPosition.getLongitude() + "/longitudes/ " + mPosition.getLatitude() + "/latitude.json";
+
+            StringRequest request = new StringRequest(url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String s) {
+
+                    try {
+                        JSONArray jarray = new JSONArray(s);
+                        int[] ids = new int[jarray.length()];
+
+                        for (int i = 0 ; i < ids.length ; i++) {
+                            ids[i] = jarray.getInt(i);
+                            Toast.makeText(MenuActivity.this, ids[i] + "", Toast.LENGTH_SHORT).show();
+                        }
+
+                        Intent intent = new Intent(MenuActivity.this, RestoListActivity.class);
+                        intent.putExtra("ids", ids);
+                        startActivity(intent);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    Toast.makeText(MenuActivity.this, volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            RequestQueue queue = Volley.newRequestQueue(MenuActivity.this, new OkHttpStack());
+            queue.add(request);
+
+        }
+
+
     }
 
     @OnClick (R.id.typeHandicapButton)
@@ -196,6 +238,7 @@ public class MenuActivity extends ActionBarActivity {
             }*/
             isLocationFinished = true;
             mPosition = result;
+
         }
 
         @Override

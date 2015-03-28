@@ -3,19 +3,19 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_disabled_type">DisabledTypeActivity</string>
+    <string name="title_activity_disabled_type">Type d\'handicap</string>
     <string name="list_item_resto_name">Nom du restaurant</string>
     <string name="list_item_resto_type">Type du restaurant</string>
 
     <string name="disabled_type_title">Votre type d\'handicap</string>
-    <string name="title_activity_resto_list">RestoListActivity</string>
+    <string name="title_activity_resto_list">Liste des restaurants</string>
 
     <string name="resto_location_button">Restos aux alentours</string>
     <string name="resto_list_button">Liste restaurants</string>
     <string name="resto_favoris_button">Mes restaurants</string>
     <string name="type_handicap_button">Mon handicap</string>
 
-    <string name="no_data_resto_list">No data to display</string>
+    <string name="no_data_resto_list">Pas de donnée à afficher</string>
     <string name="title_activity_opinion">Donner un avis</string>
     <string name="title_activity_resto_details">Détails du restaurant</string>
 

@@ -1,5 +1,6 @@
 package com.hackathon.handiplace.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -20,6 +21,9 @@ import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.classes.Config;
 import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PostRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -138,6 +142,18 @@ public class DisabledTypeActivity extends ActionBarActivity {
     @OnClick(R.id.continue_button)
     public void sendResult() {
 
+        if (HandiPlaceApplication.user == null) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Erreur");
+            builder.setMessage("Une erreur est survenue...");
+            builder.setPositiveButton(android.R.string.ok, null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            return;
+        }
+
         String result = new String();
 
         if (selectedButtons[0]) {
@@ -153,10 +169,10 @@ public class DisabledTypeActivity extends ActionBarActivity {
             result += "3 ";
         }
         if (selectedButtons[4]) {
-            result += "5 ";
+            result += "4 ";
         }
         if (selectedButtons[5]) {
-            result += "4 ";
+            result += "5 ";
         }
 
         Map params = new HashMap();
@@ -167,13 +183,37 @@ public class DisabledTypeActivity extends ActionBarActivity {
         PostRequest request = new PostRequest(url, params, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
+                try{
+                    JSONObject userJson = new JSONObject(s);
+
+                    if (userJson.has("response")) {
+
+                        if (userJson.getBoolean("response")) {
+
+                            for(int i = 0; i<Config.idHandicap.size(); i++){
+                                if(selectedButtons[i])
+                                    HandiPlaceApplication.user.setDisability(true, i);
+                            }
+                        }
+                        else {
+                            // Renvoie une requête pour créer un compte
+                        }
+                    } else {
+                        // Erreur !
+                    }
+                }
+                catch(JSONException e){
+                    e.printStackTrace();
+                }
+
                 Intent intent = new Intent(DisabledTypeActivity.this, MenuActivity.class);
                 startActivity(intent);
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(DisabledTypeActivity.this, "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                Toast.makeText(DisabledTypeActivity.this, volleyError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -193,7 +233,15 @@ public class DisabledTypeActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        selectedButtons = new boolean[6];
+        selectedButtons = new boolean[Config.idHandicap.size()];
+
+        for (int i = 0; i<Config.idHandicap.size(); i++){
+           if(HandiPlaceApplication.user.getDisabilities()[i]){
+               selectedButtons[i] = true;
+               deafButton.setBackgroundResource(R.drawable.button_background_selected);
+           }
+        }
+
     }
 
 
