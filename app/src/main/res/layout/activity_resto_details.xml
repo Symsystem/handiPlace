@@ -82,6 +82,7 @@
                     >
 
                     <ImageButton
+                        android:contentDescription="Handicapé moteur lourd"
                         android:src="@drawable/disabled"
                         android:id="@+id/motor"
                         android:layout_width="160dp"
@@ -112,6 +113,7 @@
                     >
 
                     <ImageButton
+                        android:contentDescription="Handicapé moteur léger"
                         android:src="@drawable/nottotallydisabled"
                         android:id="@+id/lightMotor"
                         android:layout_width="160dp"
@@ -141,6 +143,7 @@
                     >
 
                     <ImageButton
+                        android:contentDescription="Aveugle"
                         android:src="@drawable/blind"
                         android:id="@+id/blind"
                         android:layout_width="160dp"
@@ -170,6 +173,7 @@
                     >
 
                     <ImageButton
+                        android:contentDescription="Malvoyant"
                         android:src="@drawable/nottotallyblind"
                         android:id="@+id/viewProblems"
                         android:layout_width="160dp"
@@ -199,6 +203,7 @@
                     >
 
                     <ImageButton
+                        android:contentDescription="Sourd"
                         android:src="@drawable/deaf"
                         android:id="@+id/deaf"
                         android:layout_width="160dp"
@@ -229,6 +234,7 @@
                     >
 
                     <ImageButton
+                        android:contentDescription="Malentendant"
                         android:src="@drawable/nottotallydeaf"
                         android:id="@+id/hearing_problems"
                         android:layout_width="160dp"

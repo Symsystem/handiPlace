@@ -10,7 +10,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Activer position"
+        android:text="Activer géolocalisation"
         android:id="@+id/wifiButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -23,6 +23,7 @@
         android:textColor="@android:color/white"/>
 
     <ImageView
+        android:contentDescription="Votre géolocalisation n'est pas activée"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/locationImageView"

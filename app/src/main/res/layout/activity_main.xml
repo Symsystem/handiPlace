@@ -19,6 +19,7 @@
         >
 
         <ImageButton
+            android:contentDescription="Les restaurants aux alentours"
             android:id="@+id/restoLocationButton"
             style="@style/MenuButton"
             android:src="@drawable/icon_map"
@@ -31,10 +32,12 @@
             android:gravity="center"
             android:textSize="18dp"
             android:layout_marginBottom="8dp"
+
             />
 
 
         <ImageButton
+            android:contentDescription="Vos restaurants favoris"
             android:id="@+id/restoFavorisButton"
             style="@style/MenuButton"
             android:src="@drawable/icon_mesfavo"
@@ -51,10 +54,10 @@
             />
 
         <ImageButton
+            android:contentDescription="Decrivez votre handicap"
             android:id="@+id/typeHandicapButton"
             style="@style/MenuButton"
-            android:src="@drawable/icon_handi"
-            />
+            android:src="@drawable/icon_handi"/>
 
         <TextView
             android:layout_width="match_parent"
