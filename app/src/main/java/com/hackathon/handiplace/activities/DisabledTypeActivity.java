@@ -1,5 +1,6 @@
 package com.hackathon.handiplace.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -138,6 +139,18 @@ public class DisabledTypeActivity extends ActionBarActivity {
     @OnClick(R.id.continue_button)
     public void sendResult() {
 
+        if (HandiPlaceApplication.user == null) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Erreur");
+            builder.setMessage("Une erreur est survenue...");
+            builder.setPositiveButton(android.R.string.ok, null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            return;
+        }
+
         String result = new String();
 
         if (selectedButtons[0]) {
@@ -173,7 +186,7 @@ public class DisabledTypeActivity extends ActionBarActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(DisabledTypeActivity.this, "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                Toast.makeText(DisabledTypeActivity.this, volleyError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 

@@ -1,8 +1,5 @@
 package com.hackathon.handiplace.activities;
 
-import android.app.AlertDialog;
-import android.app.Application;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -11,10 +8,8 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -33,7 +28,6 @@ import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PermissionGPS;
 import com.hackathon.handiplace.request.PostRequest;
 
-import org.apache.http.util.ExceptionUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,6 +91,9 @@ public class MenuActivity extends ActionBarActivity {
                     if (userJson.has("response")) {
 
                         if (userJson.getBoolean("response")) {
+
+                            Toast.makeText(MenuActivity.this, "REPONSE", Toast.LENGTH_SHORT).show();
+
                             HandiPlaceApplication.user = new User();
                             HandiPlaceApplication.user.setId(userJson.getInt("id"));
                             JSONArray disArray = userJson.getJSONArray("disabilities");
@@ -120,7 +117,7 @@ public class MenuActivity extends ActionBarActivity {
                     new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                Toast.makeText(MenuActivity.this, volleyError.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
 
