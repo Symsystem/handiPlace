@@ -170,13 +170,7 @@ public class MenuActivity extends ActionBarActivity {
 
     @OnClick (R.id.restoLocationButton)
     public void startRestLocationActivity(View view){
-        // if(mPosition == null){
-        //     Toast.makeText(this, "Location pas encore définie...", Toast.LENGTH_SHORT).show();
-        // }
 
-        // else {
-            // TODO
-            // String url = Config.BASE_URL + "api/places/" + mPosition.getLongitude() + "/longitudes/ " + mPosition.getLatitude() + "/latitude.json";
             String url = Utils.BASE_URL + "api/places/" + 50 + "/longitudes/" + 4 + "/latitude.json";
 
             StringRequest request = new StringRequest(url, new Response.Listener<String>() {
@@ -220,7 +214,6 @@ public class MenuActivity extends ActionBarActivity {
             RequestQueue queue = Volley.newRequestQueue(MenuActivity.this, new OkHttpStack());
             queue.add(request);
 
-        // }
 
 
     }
