@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.hackathon.handiplace.activities.InternetActivity"
+                android:id="@+id/wifi_activity">
+
+    <include layout="@layout/toolbar" android:id="@+id/toolbar" />
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="0dp"
+        android:layout_alignParentBottom="true"
+        >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wifi"
+            android:id="@+id/wifiButton"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_background"
+            android:layout_weight="1"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Données mobiles"
+            android:id="@+id/cellButton"
+            android:background="@drawable/button_background"
+            android:layout_above="@+id/wifiButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/wifiImageView"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/wireless"
+        android:adjustViewBounds="true"
+        android:padding="24dp"/>
+
+</RelativeLayout>
