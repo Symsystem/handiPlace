@@ -143,7 +143,7 @@ public class DisabledTypeActivity extends ActionBarActivity {
 
     @OnClick(R.id.continue_button)
     public void sendResult() {
-        Utils.checkConnectionsReturnLocation(this);
+        Utils.checkConnectionsLocation(this);
 
         if (HandiPlaceApplication.user == null) {
 

@@ -48,7 +48,6 @@ public class MenuActivity extends ActionBarActivity {
     @InjectView(R.id.typeHandicapButton)
     ImageButton mTypeHandicap;
 
-    private Position mPosition;
     private String macAddress;
 
     @Override
@@ -62,7 +61,7 @@ public class MenuActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        mPosition = Utils.checkConnectionsReturnLocation(this);
+        Utils.checkConnectionsLocation(this);
 
         if(!HandiPlaceApplication.user.isConnected()) {
             login();
@@ -73,7 +72,7 @@ public class MenuActivity extends ActionBarActivity {
     @OnClick(R.id.restoFavorisButton)
     public void favRestos(View view) {
 
-        String url = Utils.BASE_URL + "api/favorites/" + HandiPlaceApplication.user.getId() + "/longitudes/" + mPosition.getLongitude() + "/latitudes/" + mPosition.getLatitude() + "/get.json";
+        String url = Utils.BASE_URL + "api/favorites/" + HandiPlaceApplication.user.getId() + "/longitudes/" + HandiPlaceApplication.currentPosition.getLongitude() + "/latitudes/" + HandiPlaceApplication.currentPosition.getLatitude() + "/get.json";
 
         StringRequest request = new StringRequest(url, new Response.Listener<String>() {
             @Override
@@ -215,7 +214,7 @@ public class MenuActivity extends ActionBarActivity {
     @OnClick (R.id.restoLocationButton)
     public void startRestLocationActivity(View view){
 
-            String url = Utils.BASE_URL + "api/places/" + mPosition.getLongitude() + "/longitudes/" + mPosition.getLatitude() + "/latitude.json";
+            String url = Utils.BASE_URL + "api/places/" + HandiPlaceApplication.currentPosition.getLongitude() + "/longitudes/" + HandiPlaceApplication.currentPosition.getLatitude() + "/latitude.json";
 
             StringRequest request = new StringRequest(url, new Response.Listener<String>() {
                 @Override
@@ -264,7 +263,7 @@ public class MenuActivity extends ActionBarActivity {
 
     @OnClick (R.id.typeHandicapButton)
     public void startDisabledTypeActivity(View view){
-        Utils.checkConnectionsReturnLocation(this);
+        Utils.checkConnectionsLocation(this);
         Intent intent = new Intent(this, DisabledTypeActivity.class);
         startActivity(intent);
     }
