@@ -134,8 +134,6 @@ public class MenuActivity extends ActionBarActivity {
 
                         if (userJson.getBoolean("response")) {
 
-                            Toast.makeText(MenuActivity.this, "REPONSE", Toast.LENGTH_SHORT).show();
-
                             HandiPlaceApplication.user.setConnected(true);
                             HandiPlaceApplication.user.setId(userJson.getInt("id"));
                             JSONArray disArray = userJson.getJSONArray("disabilities");
