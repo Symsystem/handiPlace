@@ -11,11 +11,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.classes.Restaurant;
 import com.hackathon.handiplace.classes.Utils;
+import com.hackathon.handiplace.request.PostRequest;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -50,8 +59,8 @@ public class RestoDetailsActivity extends ActionBarActivity {
     @InjectView(R.id.hearing_problems_stars) IconTextView hearingProblemsStars;
     @InjectView(R.id.new_comment) Button newCommentButton;
 
-    private ImageButton[] disabledType = {motor, lightMotor, blind, viewProblems, deaf, hearingProblems};
-    boolean[] selected = new boolean[HandiPlaceApplication.user.getDisabilities().length];
+    private ImageButton[] disabledType;
+    int selected;
     Toolbar toolbar;
 
     @Override
@@ -61,9 +70,16 @@ public class RestoDetailsActivity extends ActionBarActivity {
 
         ButterKnife.inject(this);
 
+        disabledType = new ImageButton[6];
+        disabledType[0] = motor;
+        disabledType[1] = lightMotor;
+        disabledType[2] = blind;
+        disabledType[3] = viewProblems;
+        disabledType[4] = deaf;
+        disabledType[5] = hearingProblems;
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -110,43 +126,82 @@ public class RestoDetailsActivity extends ActionBarActivity {
 
 
 
-        for(int i = 0; i<selected.length; i++){
+        for(int i = 0; i<Utils.idHandicap.size(); i++){
             if(HandiPlaceApplication.user.getDisabilities()[i]) {
-                selected[i] = true;
+                selected = i;
+                disabledType[i].setBackgroundResource(R.drawable.button_background_selected);
                 break;
             }
-            if (i == HandiPlaceApplication.user.getDisabilities().length - 1 && !HandiPlaceApplication.user.getDisabilities()[i])
-                selected[0] = true;
+            if (i == Utils.idHandicap.size()-1 && !(HandiPlaceApplication.user.getDisabilities()[i])){
+                selected = 0;
+                disabledType[0].setBackgroundResource(R.drawable.button_background_selected);
+            }
         }
 
+    }
+
+    @OnClick (R.id.fav)
+    public void onClickFav(View view){
+        String url = Utils.BASE_URL + "api/favorites/" + HandiPlaceApplication.user.getId() + ".json";
+        Map<String, String> params = new HashMap<>();
+        params.put("idPlace", resto.getId()+"");
+        PostRequest request = new PostRequest(url, params, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                try{
+                    JSONObject jsonObject = new JSONObject(s);
+                    if(jsonObject.getBoolean("response")){
+
+                    }
+                }
+                catch(JSONException e){
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        });
     }
 
     @OnClick (R.id.motor)
-    public void onClickMotor(){
-        for(int i = 0; i<selected.length; i++){
-
-        }
+    public void onClickMotor(View view){
+        disabledType[selected].setBackgroundResource(R.drawable.button_background);
+        selected = 0;
+        disabledType[0].setBackgroundResource(R.drawable.button_background_selected);
     }
 
     @OnClick (R.id.light_motor)
-    public void onClickLightMotor(){
-
+    public void onClickLightMotor(View view){
+        disabledType[selected].setBackgroundResource(R.drawable.button_background);
+        selected = 1;
+        disabledType[1].setBackgroundResource(R.drawable.button_background_selected);
     }
     @OnClick (R.id.blind)
-    public void onClickBlind(){
-
+    public void onClickBlind(View view){
+        disabledType[selected].setBackgroundResource(R.drawable.button_background);
+        selected = 2;
+        disabledType[2].setBackgroundResource(R.drawable.button_background_selected);
     }
     @OnClick (R.id.view_problems)
-    public void onClickViewProblems(){
-
+    public void onClickViewProblems(View view){
+        disabledType[selected].setBackgroundResource(R.drawable.button_background);
+        selected = 3;
+        disabledType[3].setBackgroundResource(R.drawable.button_background_selected);
     }
     @OnClick (R.id.deaf)
-    public void onClickDeaf(){
-
+    public void onClickDeaf(View view){
+        disabledType[selected].setBackgroundResource(R.drawable.button_background);
+        selected = 4;
+        disabledType[4].setBackgroundResource(R.drawable.button_background_selected);
     }
     @OnClick (R.id.hearing_problems)
-    public void onClickHearingProblems(){
-
+    public void onClickHearingProblems(View view){
+        disabledType[selected].setBackgroundResource(R.drawable.button_background);
+        selected = 5;
+        disabledType[5].setBackgroundResource(R.drawable.button_background_selected);
     }
 
     @OnClick (R.id.new_comment)

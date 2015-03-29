@@ -1,5 +1,6 @@
 package com.hackathon.handiplace.classes;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -14,8 +15,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.hackathon.handiplace.HandiPlaceApplication;
+import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.activities.InternetActivity;
-import com.hackathon.handiplace.activities.LocationActivity;
 
 import java.util.HashMap;
 
@@ -146,6 +147,8 @@ public class Utils {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             context.startActivity(intent);
+
+            ((Activity) context).overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_top);
         }
         updateLocation(context);
     }
