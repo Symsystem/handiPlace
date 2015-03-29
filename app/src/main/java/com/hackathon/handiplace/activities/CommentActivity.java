@@ -39,6 +39,14 @@ public class CommentActivity extends ActionBarActivity {
     int idPlace = 0;
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                CommentActivity.this.finish();
+        }
+        return true;
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
