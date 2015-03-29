@@ -10,8 +10,8 @@
     <string name="disabled_type_title">Votre type d\'handicap</string>
     <string name="title_activity_resto_list">Liste des restaurants</string>
 
-    <string name="resto_location_button">Restos aux alentours</string>
-    <string name="resto_list_button">Liste restaurants</string>
+    <string name="resto_location_button">Restaurants aux alentours</string>
+    <string name="resto_list_button">Liste des restaurants</string>
     <string name="resto_favoris_button">Mes restaurants</string>
     <string name="type_handicap_button">Mon handicap</string>
 

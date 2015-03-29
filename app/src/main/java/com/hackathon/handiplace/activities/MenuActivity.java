@@ -74,8 +74,8 @@ public class MenuActivity extends ActionBarActivity {
 
     @OnClick(R.id.restoFavorisButton)
     public void favRestos(View view) {
-
         spinner.setVisibility(View.VISIBLE);
+        Utils.checkConnectionsLocation(this);
 
         String url = Utils.BASE_URL + "api/favorites/" + HandiPlaceApplication.user.getId() + "/longitudes/" + HandiPlaceApplication.currentPosition.getLongitude() + "/latitudes/" + HandiPlaceApplication.currentPosition.getLatitude() + "/get.json";
 
@@ -220,7 +220,8 @@ public class MenuActivity extends ActionBarActivity {
     @OnClick (R.id.restoLocationButton)
     public void startRestLocationActivity(View view){
 
-            spinner.setVisibility(View.VISIBLE);
+        spinner.setVisibility(View.VISIBLE);
+        Utils.checkConnectionsLocation(this);
 
             String url = Utils.BASE_URL + "api/places/" + HandiPlaceApplication.currentPosition.getLongitude() + "/longitudes/" + HandiPlaceApplication.currentPosition.getLatitude() + "/latitude.json";
 

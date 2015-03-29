@@ -320,7 +320,9 @@ public class RestoDetailsActivity extends ActionBarActivity {
                     somme += c.getPriority();
                 tot += c.getPriority();
             }
-            int rate = Math.round(somme/tot * 5);
+            //int rate = new Random().nextInt(5)+1;
+            double d = ((double)somme / (double)tot) * 5;
+            int rate = (int)Math.round(d);
             String s = new String();
 
             for(int j = 0; j<rate; j++){
