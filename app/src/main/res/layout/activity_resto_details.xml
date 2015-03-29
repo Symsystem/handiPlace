@@ -4,65 +4,66 @@
     android:layout_height="match_parent"
     >
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include layout="@layout/toolbar" android:id="@+id/toolbar"/>
 
-        <ImageView
-            android:layout_below="@id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:id="@+id/header_image"
-            android:layout_centerHorizontal="true"
-            android:contentDescription="Photo du restaurant"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true" />
+    <ImageView
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:id="@+id/header_image"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="Photo du restaurant"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true" />
 
-        <ImageButton
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/favorisavant"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="64dp"
-            android:layout_marginRight="16dp"
-            android:scaleType="fitCenter"
-            android:elevation="4dp"
-            android:background="@android:color/transparent"
-            android:id="@+id/fav"
-            android:contentDescription="Mettre dans ses favoris"
-            />
+    <ImageButton
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/favorisavant"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="64dp"
+        android:layout_marginRight="16dp"
+        android:scaleType="fitCenter"
+        android:elevation="4dp"
+        android:background="@android:color/transparent"
+        android:id="@+id/fav"
+        android:contentDescription="Mettre dans ses favoris"
+        />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nom du restaurant"
-            android:id="@+id/resto_name"
-            android:layout_below="@+id/header_image"
-            android:textIsSelectable="false"
-            android:textSize="30dp"
-            android:layout_margin="8dp"
-            android:textColor="@color/primary_text"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nom du restaurant"
+        android:id="@+id/resto_name"
+        android:layout_below="@+id/header_image"
+        android:textIsSelectable="false"
+        android:textSize="30dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/primary_text"
+        android:layout_margin="8dp"
+        />
 
-            />
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Ceci est la description du restaurant. Ceci est la description du restaurant. Ceci est la description du restaurant."
+           android:layout_below="@id/resto_name"
+         android:textSize="16sp"
+         android:textColor="@color/secondary_text"
+         android:layout_marginLeft="8dp"
+         android:layout_marginRight="8dp"
+         android:layout_marginBottom="8dp"
+         android:id="@+id/resto_desc"
+         />
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ceci est la description du restaurant."
-            android:layout_below="@id/resto_name"
-            android:textSize="16sp"
-            android:textColor="@color/secondary_text"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="-4dp"
-            android:id="@+id/resto_desc"
-            android:visibility="gone"
-            />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -106,10 +107,9 @@
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:id="@+id/motor_stars"
-                        android:layout_marginLeft="-2dp"
-                        />
+                    />
 
-                </LinearLayout>
+                    </LinearLayout>
 
 
                 <LinearLayout
@@ -139,8 +139,6 @@
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:id="@+id/light_motor_stars"
-                        android:layout_marginLeft="-2dp"
-
                         />
 
                 </LinearLayout>
@@ -172,8 +170,6 @@
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:id="@+id/blind_stars"
-                        android:layout_marginLeft="-2dp"
-
                         />
 
                 </LinearLayout>
@@ -205,8 +201,6 @@
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:id="@+id/view_problems_stars"
-                        android:layout_marginLeft="-2dp"
-
                         />
 
                 </LinearLayout>
@@ -238,8 +232,6 @@
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:id="@+id/deaf_stars"
-                        android:layout_marginLeft="-2dp"
-
                         />
 
                 </LinearLayout>
@@ -272,15 +264,13 @@
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:id="@+id/hearing_problems_stars"
-                        android:layout_marginLeft="-2dp"
-
                         />
 
                 </LinearLayout>
 
-            </LinearLayout>
+                </LinearLayout>
 
-        </HorizontalScrollView>
+          </HorizontalScrollView>
 
 
 
@@ -311,7 +301,7 @@
                 >
 
 
-            </LinearLayout>
+                </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"

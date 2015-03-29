@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -39,6 +40,7 @@ import butterknife.OnClick;
 public class MenuActivity extends ActionBarActivity {
 
     Toolbar toolbar;
+    ProgressBar spinner;
 
     @InjectView(R.id.restoLocationButton)
     ImageButton mRestoLocation;
@@ -60,6 +62,8 @@ public class MenuActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        spinner = (ProgressBar) findViewById(R.id.spinner);
+
         Utils.checkConnectionsLocation(this);
 
         if(!HandiPlaceApplication.user.isConnected()) {
@@ -70,6 +74,8 @@ public class MenuActivity extends ActionBarActivity {
 
     @OnClick(R.id.restoFavorisButton)
     public void favRestos(View view) {
+
+        spinner.setVisibility(View.VISIBLE);
 
         String url = Utils.BASE_URL + "api/favorites/" + HandiPlaceApplication.user.getId() + "/longitudes/" + HandiPlaceApplication.currentPosition.getLongitude() + "/latitudes/" + HandiPlaceApplication.currentPosition.getLatitude() + "/get.json";
 
@@ -95,6 +101,8 @@ public class MenuActivity extends ActionBarActivity {
 
                         restaurants.add(res);
                     }
+
+                    spinner.setVisibility(View.GONE);
 
                     Intent intent = new Intent(MenuActivity.this, RestoListActivity.class);
                     intent.putExtra("restos", restaurants);
@@ -212,11 +220,14 @@ public class MenuActivity extends ActionBarActivity {
     @OnClick (R.id.restoLocationButton)
     public void startRestLocationActivity(View view){
 
+            spinner.setVisibility(View.VISIBLE);
+
             String url = Utils.BASE_URL + "api/places/" + HandiPlaceApplication.currentPosition.getLongitude() + "/longitudes/" + HandiPlaceApplication.currentPosition.getLatitude() + "/latitude.json";
 
             StringRequest request = new StringRequest(url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String s) {
+
 
                     ArrayList<Restaurant> restaurants = new ArrayList<>();
 
@@ -237,6 +248,8 @@ public class MenuActivity extends ActionBarActivity {
                             restaurants.add(res);
                         }
 
+                        spinner.setVisibility(View.GONE);
+
                         Intent intent = new Intent(MenuActivity.this, RestoListActivity.class);
                         intent.putExtra("restos",restaurants);
                         startActivity(intent);
@@ -255,8 +268,6 @@ public class MenuActivity extends ActionBarActivity {
 
             RequestQueue queue = Volley.newRequestQueue(MenuActivity.this, new OkHttpStack());
             queue.add(request);
-
-
 
     }
 

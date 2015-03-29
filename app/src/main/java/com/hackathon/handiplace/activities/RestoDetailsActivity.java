@@ -41,6 +41,7 @@ import butterknife.OnClick;
 
 public class RestoDetailsActivity extends ActionBarActivity {
 
+    private boolean openDesc;
     private boolean isFav;
     private Restaurant resto;
 
@@ -61,6 +62,7 @@ public class RestoDetailsActivity extends ActionBarActivity {
     @InjectView(R.id.hearing_problems) ImageButton hearingProblems;
     @InjectView(R.id.hearing_problems_stars) IconTextView hearingProblemsStars;
     @InjectView(R.id.new_comment) Button newCommentButton;
+
 
     private ImageButton[] disabledType;
     int selected;
@@ -149,9 +151,7 @@ public class RestoDetailsActivity extends ActionBarActivity {
                 RequestQueue queue = Volley.newRequestQueue(RestoDetailsActivity.this, new OkHttpStack());
                 queue.add(request);
             }
-       });
-
-
+        });
 
         // image
         String url = Utils.BASE_URL + resto.getImageURL();
@@ -178,6 +178,52 @@ public class RestoDetailsActivity extends ActionBarActivity {
             }
         }
 
+        restoName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (openDesc) {
+
+                    restoDesc.setVisibility(View.GONE);
+                    openDesc = false;
+
+                } else {
+
+                    restoDesc.setVisibility(View.VISIBLE);
+                    openDesc = true;
+
+                }
+
+            }
+        });
+
+
+    }
+
+    @OnClick (R.id.fav)
+    public void onClickFav(View view){
+        String url = Utils.BASE_URL + "api/favorites/" + HandiPlaceApplication.user.getId() + ".json";
+        Map<String, String> params = new HashMap<>();
+        params.put("idPlace", resto.getId()+"");
+        PostRequest request = new PostRequest(url, params, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                try{
+                    JSONObject jsonObject = new JSONObject(s);
+                    if(jsonObject.getBoolean("response")){
+
+                    }
+                }
+                catch(JSONException e){
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        });
     }
 
     @OnClick (R.id.motor)
@@ -222,7 +268,7 @@ public class RestoDetailsActivity extends ActionBarActivity {
     public void onClickNewComment(){
         Intent intent = new Intent(RestoDetailsActivity.this, CommentActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("resto", resto);
+        intent.putExtra("resto_id", resto.getId());
         startActivity(intent);
     }
 
