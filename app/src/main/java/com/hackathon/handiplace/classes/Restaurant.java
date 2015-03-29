@@ -14,6 +14,7 @@ public class Restaurant implements Serializable{
     private String imageURL;
     private int rating;
     private double kilometers;
+    private boolean isFavorite;
     private ArrayList<Disability> disabilities;
 
     public Restaurant(){
@@ -94,6 +95,7 @@ public class Restaurant implements Serializable{
         this.imageURL = imageURL;
     }
 
+    public void setFavorite(boolean b){this.isFavorite = b; }
 
     public double getKilometers() {
         return kilometers;

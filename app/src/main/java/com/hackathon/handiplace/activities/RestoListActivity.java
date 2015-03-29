@@ -82,6 +82,8 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
                     resto.setId(jsonDetailsResto.getInt("id"));
                     resto.setAddress(jsonDetailsResto.getString("address"));
                     resto.setCategory(jsonDetailsResto.getString("category"));
+                    resto.setFavorite(jsonDetailsResto.getBoolean("isFavorite"));
+                    resto.setImageURL(jsonDetailsResto.getString("imgUrl"));
 
                     JSONArray criterionArray = jsonDetailsResto.getJSONArray("criterion");
 
@@ -98,7 +100,8 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
                                 critObj.getBoolean("goodOrBad"),
                                 critObj.getInt("userLike"),
                                 critObj.getInt("nbLike"),
-                                critObj.getInt("nbDislike"));
+                                critObj.getInt("nbDislike"),
+                                critObj.getInt("priority"));
 
                         disTempArray = critObj.getJSONArray("disability");
 
@@ -106,13 +109,12 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
                             disObj = disTempArray.getJSONObject(j);
 
                             int id = disObj.getInt("id");
-                            if(isAlreadyDis[id-1] == null || !(isAlreadyDis[id-1].getId() == id)){
+                            if(isAlreadyDis[id-1] == null){
 
-                                Disability dis = new Disability(id,
+                                isAlreadyDis[id-1] = new Disability(id,
                                         disObj.getString("name"),
                                         disObj.getString("description"),
                                         new ArrayList<Criterion>());
-                                isAlreadyDis[id-1] = dis;
                             }
 
                             isAlreadyDis[id-1].getCriterions().add(crit);
@@ -121,7 +123,7 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
 
                     ArrayList<Disability> disArray = new ArrayList<>();
                     for(int i = 0; i<isAlreadyDis.length; i++){
-                        disArray.add(isAlreadyDis[0]);
+                        disArray.add(isAlreadyDis[i]);
                     }
                     resto.setDisabilities(disArray);
 

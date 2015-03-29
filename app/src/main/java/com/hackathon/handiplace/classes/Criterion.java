@@ -8,9 +8,10 @@ public class Criterion implements Serializable{
     private String name;
     private String description;
     private boolean gooOrBad;
-    private int isLiked, like, dislike;
+    private int isLiked, like, dislike, priority;
 
-    public Criterion(String name, String description, boolean goodOrBad, int isLiked, int like, int dislike) {
+
+    public Criterion(String name, String description, boolean goodOrBad, int isLiked, int like, int dislike, int priority) {
         this.name = name;
         this.description = description;
     }

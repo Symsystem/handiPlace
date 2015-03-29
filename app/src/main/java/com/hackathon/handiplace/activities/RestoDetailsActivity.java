@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.classes.Restaurant;
@@ -50,7 +49,7 @@ public class RestoDetailsActivity extends ActionBarActivity {
         Intent intent = getIntent();
         resto = (Restaurant)intent.getSerializableExtra("resto");
 
-        Toast.makeText(this, resto.getName().toString(), Toast.LENGTH_LONG).show();
+
     }
 
 
