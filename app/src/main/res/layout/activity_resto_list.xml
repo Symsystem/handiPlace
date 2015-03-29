@@ -12,10 +12,10 @@
         android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_alignParentRight="true"
         android:layout_marginRight="28dp"
-        android:layout_marginTop="-52dp"
-        android:visibility="gone"
+        android:layout_marginTop="4dp"
+        android:visibility="visible"
         />
 
     <ListView
