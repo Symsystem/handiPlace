@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,8 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
 
     private List<Restaurant> restaurants;
 
+    ProgressBar spinner;
+
     Toolbar toolbar;
     @InjectView(R.id.restoList) ListView listView;
     @InjectView(android.R.id.empty) TextView empty;
@@ -56,6 +59,8 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        spinner = (ProgressBar) findViewById(R.id.spinner);
+
         Intent gottenIntent = getIntent();
         restaurants = (List<Restaurant>) gottenIntent.getSerializableExtra("restos");
 
@@ -69,6 +74,8 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        spinner.setVisibility(View.VISIBLE);
 
         final Restaurant resto = restaurants.get(position);
 
@@ -128,12 +135,16 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
                     }
                     resto.setDisabilities(disArray);
 
+                    spinner.setVisibility(View.GONE);
+
+
                     Intent intent = new Intent(RestoListActivity.this, RestoDetailsActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("resto", resto);
                     startActivity(intent);
 
                 } catch (JSONException e) {
+                    spinner.setVisibility(View.GONE);
                     e.printStackTrace();
                 }
 
@@ -142,6 +153,7 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
+            spinner.setVisibility(View.GONE);
             Toast.makeText(RestoListActivity.this, volleyError.getMessage(), Toast.LENGTH_SHORT).show();
         }
     });

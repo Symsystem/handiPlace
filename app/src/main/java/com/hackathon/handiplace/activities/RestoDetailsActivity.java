@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.IconTextView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -18,7 +17,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
-import com.hackathon.handiplace.adapters.CriteresAdapter;
 import com.hackathon.handiplace.classes.Restaurant;
 import com.hackathon.handiplace.classes.Utils;
 import com.hackathon.handiplace.request.OkHttpStack;
@@ -43,6 +41,7 @@ import butterknife.OnClick;
 
 public class RestoDetailsActivity extends ActionBarActivity {
 
+    private boolean openDesc;
     private boolean isFav;
     private Restaurant resto;
 
@@ -63,9 +62,6 @@ public class RestoDetailsActivity extends ActionBarActivity {
     @InjectView(R.id.hearing_problems) ImageButton hearingProblems;
     @InjectView(R.id.hearing_problems_stars) IconTextView hearingProblemsStars;
     @InjectView(R.id.new_comment) Button newCommentButton;
-
-    @InjectView(R.id.list_critere) ListView listCritere;
-    CriteresAdapter adapter;
 
     private ImageButton[] disabledType;
     int selected;
@@ -174,6 +170,7 @@ public class RestoDetailsActivity extends ActionBarActivity {
         //listCritere.setEmptyView(empty);
 
 
+
         for(int i = 0; i<Utils.idHandicap.size(); i++){
             if(HandiPlaceApplication.user.getDisabilities()[i]) {
                 selected = i;
@@ -186,6 +183,52 @@ public class RestoDetailsActivity extends ActionBarActivity {
             }
         }
 
+        restoName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (openDesc) {
+
+                    restoDesc.setVisibility(View.GONE);
+                    openDesc = false;
+
+                } else {
+
+                    restoDesc.setVisibility(View.VISIBLE);
+                    openDesc = true;
+
+                }
+
+            }
+        });
+
+
+    }
+
+    @OnClick (R.id.fav)
+    public void onClickFav(View view){
+        String url = Utils.BASE_URL + "api/favorites/" + HandiPlaceApplication.user.getId() + ".json";
+        Map<String, String> params = new HashMap<>();
+        params.put("idPlace", resto.getId()+"");
+        PostRequest request = new PostRequest(url, params, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                try{
+                    JSONObject jsonObject = new JSONObject(s);
+                    if(jsonObject.getBoolean("response")){
+
+                    }
+                }
+                catch(JSONException e){
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        });
     }
 
     @OnClick (R.id.motor)
