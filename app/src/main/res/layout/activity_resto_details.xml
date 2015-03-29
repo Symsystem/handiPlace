@@ -69,7 +69,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/resto_desc"
-            android:id="@+id/resto_scroll"
             >
 
             <LinearLayout
@@ -106,7 +105,6 @@
                         android:textSize="24dp"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
-                        android:id="@+id/motor_stars"
                     />
 
                     </LinearLayout>
@@ -122,7 +120,7 @@
                     <ImageButton
                         android:contentDescription="Handicapé moteur léger"
                         android:src="@drawable/nottotallydisabled"
-                        android:id="@+id/light_motor"
+                        android:id="@+id/lightMotor"
                         android:layout_width="160dp"
                         android:layout_height="160dp"
                         android:scaleType="fitCenter"
@@ -138,7 +136,6 @@
                         android:textSize="24dp"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
-                        android:id="@+id/light_motor_stars"
                         />
 
                 </LinearLayout>
@@ -169,7 +166,6 @@
                         android:textSize="24dp"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
-                        android:id="@+id/blind_stars"
                         />
 
                 </LinearLayout>
@@ -184,7 +180,7 @@
                     <ImageButton
                         android:contentDescription="Malvoyant"
                         android:src="@drawable/nottotallyblind"
-                        android:id="@+id/view_problems"
+                        android:id="@+id/viewProblems"
                         android:layout_width="160dp"
                         android:layout_height="160dp"
                         android:scaleType="fitCenter"
@@ -200,7 +196,6 @@
                         android:textSize="24dp"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
-                        android:id="@+id/view_problems_stars"
                         />
 
                 </LinearLayout>
@@ -231,7 +226,6 @@
                         android:textSize="24dp"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
-                        android:id="@+id/deaf_stars"
                         />
 
                 </LinearLayout>
@@ -263,7 +257,6 @@
                         android:textSize="24dp"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
-                        android:id="@+id/hearing_problems_stars"
                         />
 
                 </LinearLayout>
@@ -278,7 +271,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/detail_box"
-            android:layout_below="@id/resto_scroll"
+            android:layout_below="@id/resto_desc"
             android:orientation="vertical"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
@@ -336,7 +329,6 @@
             android:layout_below="@id/detail_box"
             android:text="Ecrire un avis"
             android:textColor="@android:color/white"
-            android:id="@+id/new_comment"
 
             />
 
