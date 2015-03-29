@@ -63,7 +63,6 @@ public class RestoDetailsActivity extends ActionBarActivity {
     @InjectView(R.id.hearing_problems_stars) IconTextView hearingProblemsStars;
     @InjectView(R.id.new_comment) Button newCommentButton;
 
-
     private ImageButton[] disabledType;
     int selected;
     Toolbar toolbar;
@@ -151,7 +150,9 @@ public class RestoDetailsActivity extends ActionBarActivity {
                 RequestQueue queue = Volley.newRequestQueue(RestoDetailsActivity.this, new OkHttpStack());
                 queue.add(request);
             }
-        });
+       });
+
+
 
         // image
         String url = Utils.BASE_URL + resto.getImageURL();
@@ -163,6 +164,10 @@ public class RestoDetailsActivity extends ActionBarActivity {
         // desc
         restoDesc.setText(resto.getDescription());
 
+        // Adapter pour la liste des critères :
+        adapter = new CriteresAdapter(this, resto.getDisabilities().get(selected).getCriterions());
+        listCritere.setAdapter(adapter);
+        //listCritere.setEmptyView(empty);
 
 
 
@@ -238,6 +243,7 @@ public class RestoDetailsActivity extends ActionBarActivity {
         disabledType[selected].setBackgroundResource(R.drawable.button_background);
         selected = 1;
         disabledType[1].setBackgroundResource(R.drawable.button_background_selected);
+        adapter.changeCriterions(resto.getDisabilities().get(selected).getCriterions());
     }
     @OnClick (R.id.blind)
     public void onClickBlind(View view){
@@ -268,7 +274,7 @@ public class RestoDetailsActivity extends ActionBarActivity {
     public void onClickNewComment(){
         Intent intent = new Intent(RestoDetailsActivity.this, CommentActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("resto_id", resto.getId());
+        intent.putExtra("resto", resto);
         startActivity(intent);
     }
 
