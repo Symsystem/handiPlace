@@ -101,17 +101,40 @@ public class RestoDetailsActivity extends ActionBarActivity {
         fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isFav) {
-                    fav.setImageResource(R.drawable.favorisavant);
-                    fav.setContentDescription("Ajouter le restaurant dans mes favoris");
-                    isFav = false;
-                } else {
-                    fav.setImageResource(R.drawable.favorisapres);
-                    fav.setContentDescription("Retirer le restaurant dans mes favoris");
-                    isFav = true;
-                }
+                String url = Utils.BASE_URL + "api/favorites/" + HandiPlaceApplication.user.getId() + ".json";
+                Map<String, String> params = new HashMap<>();
+                params.put("idPlace", resto.getId()+"");
+                PostRequest request = new PostRequest(url, params, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        try{
+                            JSONObject jsonObject = new JSONObject(s);
+                            if(jsonObject.getBoolean("response")){
+                                if (isFav) {
+                                    fav.setImageResource(R.drawable.favorisavant);
+                                    fav.setContentDescription("Ajouter le restaurant dans mes favoris");
+                                    isFav = false;
+                                } else {
+                                    fav.setImageResource(R.drawable.favorisapres);
+                                    fav.setContentDescription("Retirer le restaurant dans mes favoris");
+                                    isFav = true;
+                                }
+                            }
+                        }
+                        catch(JSONException e){
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+                    }
+                });
             }
-        });
+       });
+
+
 
         // image
         String url = Utils.BASE_URL + resto.getImageURL();
@@ -138,32 +161,6 @@ public class RestoDetailsActivity extends ActionBarActivity {
             }
         }
 
-    }
-
-    @OnClick (R.id.fav)
-    public void onClickFav(View view){
-        String url = Utils.BASE_URL + "api/favorites/" + HandiPlaceApplication.user.getId() + ".json";
-        Map<String, String> params = new HashMap<>();
-        params.put("idPlace", resto.getId()+"");
-        PostRequest request = new PostRequest(url, params, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String s) {
-                try{
-                    JSONObject jsonObject = new JSONObject(s);
-                    if(jsonObject.getBoolean("response")){
-
-                    }
-                }
-                catch(JSONException e){
-
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-
-            }
-        });
     }
 
     @OnClick (R.id.motor)
