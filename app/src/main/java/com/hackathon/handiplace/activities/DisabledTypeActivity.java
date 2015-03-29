@@ -68,9 +68,11 @@ public class DisabledTypeActivity extends ActionBarActivity {
         if (selectedButtons[0]) {
             selectedButtons[0] = false;
             motorButton.setBackgroundResource(R.drawable.button_background);
+            motorButton.setContentDescription("Je suis un handicapé moteur lourd");
         } else {
             selectedButtons[0] = true;
             motorButton.setBackgroundResource(R.drawable.button_background_selected);
+            motorButton.setContentDescription("Je ne suis pas un handicapé moteur lourd");
 
         }
 
@@ -82,9 +84,11 @@ public class DisabledTypeActivity extends ActionBarActivity {
         if (selectedButtons[1]) {
             selectedButtons[1] = false;
             lightMotorButton.setBackgroundResource(R.drawable.button_background);
+            lightMotorButton.setContentDescription("Je suis un handicapé moteur léger");
         } else {
             selectedButtons[1] = true;
             lightMotorButton.setBackgroundResource(R.drawable.button_background_selected);
+            lightMotorButton.setContentDescription("Je ne suis pas un handicapé moteur léger");
         }
 
     }
@@ -95,9 +99,11 @@ public class DisabledTypeActivity extends ActionBarActivity {
         if (selectedButtons[2]) {
             selectedButtons[2] = false;
             blindButton.setBackgroundResource(R.drawable.button_background);
+            blindButton.setContentDescription("Je suis aveugle");
         } else {
             selectedButtons[2] = true;
             blindButton.setBackgroundResource(R.drawable.button_background_selected);
+            blindButton.setContentDescription("Je ne suis pas aveugle");
         }
 
     }
@@ -108,9 +114,11 @@ public class DisabledTypeActivity extends ActionBarActivity {
         if (selectedButtons[3]) {
             selectedButtons[3] = false;
             vewProblemsButton.setBackgroundResource(R.drawable.button_background);
+            vewProblemsButton.setContentDescription("Je suis malvoyant");
         } else {
             selectedButtons[3] = true;
             vewProblemsButton.setBackgroundResource(R.drawable.button_background_selected);
+            vewProblemsButton.setContentDescription("Je ne suis pas malvoyant");
         }
 
     }
@@ -121,9 +129,11 @@ public class DisabledTypeActivity extends ActionBarActivity {
         if (selectedButtons[4]) {
             selectedButtons[4] = false;
             deafButton.setBackgroundResource(R.drawable.button_background);
+            deafButton.setContentDescription("Je suis sourd");
         } else {
             selectedButtons[4] = true;
             deafButton.setBackgroundResource(R.drawable.button_background_selected);
+            deafButton.setContentDescription("Je ne suis pas sourd");
         }
 
     }
@@ -134,9 +144,11 @@ public class DisabledTypeActivity extends ActionBarActivity {
         if (selectedButtons[5]) {
             selectedButtons[5] = false;
             hearingProblemsButton.setBackgroundResource(R.drawable.button_background);
+            hearingProblemsButton.setContentDescription("Je suis malentendant");
         } else {
             selectedButtons[5] = true;
             hearingProblemsButton.setBackgroundResource(R.drawable.button_background_selected);
+            hearingProblemsButton.setContentDescription("Je ne suis pas malentendant");
         }
 
     }
@@ -256,5 +268,29 @@ public class DisabledTypeActivity extends ActionBarActivity {
            }
         }
 
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_disabled_type, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
