@@ -48,9 +48,9 @@ public class RestoDetailsActivity extends ActionBarActivity {
         });
 
         Intent intent = getIntent();
-        resto = (Restaurant)intent.getSerializableExtra("restos");
+        resto = (Restaurant)intent.getSerializableExtra("resto");
 
-        Toast.makeText(this, resto.getDescription().toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, resto.getName().toString(), Toast.LENGTH_LONG).show();
     }
 
 

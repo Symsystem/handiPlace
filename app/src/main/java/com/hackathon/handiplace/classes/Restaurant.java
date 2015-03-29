@@ -16,6 +16,10 @@ public class Restaurant implements Serializable{
     private double kilometers;
     private ArrayList<Disability> disabilities;
 
+    public Restaurant(){
+
+    }
+
     public Restaurant(int id, String name, String description, String category, String address, int rating, ArrayList<Disability> disabilities) {
         this.id = id;
         this.name = name;

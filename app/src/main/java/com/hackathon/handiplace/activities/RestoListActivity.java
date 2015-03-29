@@ -106,16 +106,16 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
                             disObj = disTempArray.getJSONObject(j);
 
                             int id = disObj.getInt("id");
-                            //if(isAlreadyDis[id] == null || !(isAlreadyDis[id].getId() == id)){
+                            if(isAlreadyDis[id-1] == null || !(isAlreadyDis[id-1].getId() == id)){
 
                                 Disability dis = new Disability(id,
                                         disObj.getString("name"),
                                         disObj.getString("description"),
                                         new ArrayList<Criterion>());
-                                isAlreadyDis[id] = dis;
-                            //}
+                                isAlreadyDis[id-1] = dis;
+                            }
 
-                            isAlreadyDis[id].getCriterions().add(crit);
+                            isAlreadyDis[id-1].getCriterions().add(crit);
                         }
                     }
 

@@ -1,7 +1,9 @@
 package com.hackathon.handiplace.classes;
 
 
-public class Criterion {
+import java.io.Serializable;
+
+public class Criterion implements Serializable{
 
     private String name;
     private String description;

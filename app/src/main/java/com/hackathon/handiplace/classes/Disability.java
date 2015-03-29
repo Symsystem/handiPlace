@@ -1,8 +1,9 @@
 package com.hackathon.handiplace.classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Disability {
+public class Disability implements Serializable{
 
     private int id;
     private String name;
