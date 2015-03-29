@@ -11,12 +11,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.classes.Restaurant;
 import com.hackathon.handiplace.classes.Utils;
+import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PostRequest;
 import com.squareup.picasso.Picasso;
 
@@ -101,22 +104,33 @@ public class RestoDetailsActivity extends ActionBarActivity {
         fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isFav) {
+                    fav.setImageResource(R.drawable.favorisavant);
+                    fav.setContentDescription("Ajouter le restaurant dans mes favoris");
+                    isFav = false;
+                } else {
+                    fav.setImageResource(R.drawable.favorisapres);
+                    fav.setContentDescription("Retirer le restaurant dans mes favoris");
+                    isFav = true;
+                }
                 String url = Utils.BASE_URL + "api/favorites/" + HandiPlaceApplication.user.getId() + ".json";
                 Map<String, String> params = new HashMap<>();
                 params.put("idPlace", resto.getId()+"");
+
                 PostRequest request = new PostRequest(url, params, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         try{
                             JSONObject jsonObject = new JSONObject(s);
                             if(jsonObject.getBoolean("response")){
+
+                            }
+                            else{
                                 if (isFav) {
                                     fav.setImageResource(R.drawable.favorisavant);
-                                    fav.setContentDescription("Ajouter le restaurant dans mes favoris");
                                     isFav = false;
                                 } else {
                                     fav.setImageResource(R.drawable.favorisapres);
-                                    fav.setContentDescription("Retirer le restaurant dans mes favoris");
                                     isFav = true;
                                 }
                             }
@@ -131,6 +145,9 @@ public class RestoDetailsActivity extends ActionBarActivity {
 
                     }
                 });
+
+                RequestQueue queue = Volley.newRequestQueue(RestoDetailsActivity.this, new OkHttpStack());
+                queue.add(request);
             }
        });
 
