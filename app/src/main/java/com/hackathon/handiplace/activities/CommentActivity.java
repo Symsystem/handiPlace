@@ -86,10 +86,8 @@ public class CommentActivity extends ActionBarActivity {
                                 JSONObject userJSON = new JSONObject(s);
                                 if (userJSON.has("response")) {
                                     if (userJSON.getBoolean("response")) {
-                                        Intent intent = new Intent(CommentActivity.this, RestoDetailsActivity.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        intent.putExtra("resto", resto);
-                                        startActivity(intent);
+                                        Toast.makeText(CommentActivity.this, "Commentaire publié ...", Toast.LENGTH_LONG).show();
+                                        CommentActivity.this.finish();
                                     } else {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(CommentActivity.this);
                                         builder.setTitle("Erreur");

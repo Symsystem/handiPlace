@@ -18,6 +18,7 @@
     <string name="no_data_resto_list">Pas de donnée à afficher</string>
     <string name="title_activity_opinion">Donner un avis</string>
     <string name="title_activity_resto_details">Détails du restaurant</string>
+    <string name="title_activity_comment">Commentaire</string>
 
     <string name="waiting_title">Veuillez patienter</string>
     <string name="waiting_value">Téléchargement des données...</string>
