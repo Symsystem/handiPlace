@@ -20,6 +20,8 @@ import com.android.volley.toolbox.Volley;
 import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
 import com.hackathon.handiplace.adapters.CriteresAdapter;
+import com.hackathon.handiplace.classes.Criterion;
+import com.hackathon.handiplace.classes.Disability;
 import com.hackathon.handiplace.classes.Restaurant;
 import com.hackathon.handiplace.classes.Utils;
 import com.hackathon.handiplace.request.OkHttpStack;
@@ -30,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,6 +77,7 @@ public class RestoDetailsActivity extends ActionBarActivity {
     CriteresAdapter adapter;
 
     private ImageButton[] disabledType;
+    private IconTextView[] stars;
     int selected;
     Toolbar toolbar;
 
@@ -182,6 +186,17 @@ public class RestoDetailsActivity extends ActionBarActivity {
 
         //listCritere.setScrollContainer(false);
 
+        //Dessine et calcule les étoiles
+        stars = new IconTextView[6];
+        stars[0] = motorStars;
+        stars[1] = lightMotorStars;
+        stars[2] = blindStars;
+        stars[3] = viewProblemsStars;
+        stars[4] = deafStars;
+        stars[5] = hearingProblemsStars;
+
+        writeStars();
+
         //Met à jour les critères :
         writeCriterion(selected);
 
@@ -283,14 +298,39 @@ public class RestoDetailsActivity extends ActionBarActivity {
         String strMauvais = "";
         for(int i = 0; i < resto.getDisabilities().get(disabledSelected).getCriterions().size(); i++){
             if(resto.getDisabilities().get(disabledSelected).getCriterions().get(i).isGooOrBad()){
-                strMauvais += resto.getDisabilities().get(disabledSelected).getCriterions().get(i).getName() + "\n\n";
+                strOK += resto.getDisabilities().get(disabledSelected).getCriterions().get(i).getName() + "\n\n";
             }
             else {
-                strOK += resto.getDisabilities().get(disabledSelected).getCriterions().get(i).getName() + "\n\n";
+                strMauvais += resto.getDisabilities().get(disabledSelected).getCriterions().get(i).getName() + "\n\n";
             }
         }
         minusContent.setText(strMauvais);
         plusContent.setText(strOK);
+    }
+
+    private void writeStars(){
+        int tot = 0, somme = 0;
+        ArrayList<Disability> disabilities = resto.getDisabilities();
+        ArrayList<Criterion> criterions;
+        for(int i = 0; i < Utils.idHandicap.size(); i++){
+            criterions = disabilities.get(i).getCriterions();
+            for(int j = 0; j < criterions.size(); j++){
+                Criterion c = criterions.get(j);
+                if(c.isGooOrBad())
+                    somme += c.getPriority();
+                tot += c.getPriority();
+            }
+            int rate = Math.round(somme/tot * 5);
+            String s = new String();
+
+            for(int j = 0; j<rate; j++){
+                s += "{fa-star}";
+            }
+
+            stars[i].setText(s);
+        }
+
+
     }
 
     @OnClick (R.id.motor)
