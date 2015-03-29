@@ -210,7 +210,6 @@ public class DisabledTypeActivity extends ActionBarActivity {
                                     HandiPlaceApplication.user.setDisability(true, i);
                                 else
                                     HandiPlaceApplication.user.setDisability(false, i);
-
                             }
                         }
                         else {
@@ -223,15 +222,13 @@ public class DisabledTypeActivity extends ActionBarActivity {
                 catch(JSONException e){
                     e.printStackTrace();
                 }
-
-                Intent intent = new Intent(DisabledTypeActivity.this, MenuActivity.class);
-                startActivity(intent);
+                DisabledTypeActivity.this.finish();
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(DisabledTypeActivity.this, volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(DisabledTypeActivity.this, volleyError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
