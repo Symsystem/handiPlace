@@ -134,7 +134,7 @@ public class MenuActivity extends ActionBarActivity {
         StringRequest request = new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-                try {
+                try{
 
                     JSONObject userJson = new JSONObject(s);
 

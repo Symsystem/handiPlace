@@ -10,19 +10,23 @@ import android.widget.IconTextView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
+import com.hackathon.handiplace.adapters.CriteresAdapter;
 import com.hackathon.handiplace.classes.Restaurant;
 import com.hackathon.handiplace.classes.Utils;
 import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PostRequest;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,9 +45,9 @@ import butterknife.OnClick;
 
 public class RestoDetailsActivity extends ActionBarActivity {
 
-    private boolean openDesc;
     private boolean isFav;
     private Restaurant resto;
+    private boolean openDesc;
 
     @InjectView(R.id.header_image) ImageView headerImage;
     @InjectView(R.id.fav) ImageButton fav;
@@ -62,6 +66,12 @@ public class RestoDetailsActivity extends ActionBarActivity {
     @InjectView(R.id.hearing_problems) ImageButton hearingProblems;
     @InjectView(R.id.hearing_problems_stars) IconTextView hearingProblemsStars;
     @InjectView(R.id.new_comment) Button newCommentButton;
+
+    //@InjectView(R.id.list_critere) ListView listCritere;
+    @InjectView(R.id.plusContent) TextView plusContent;
+    @InjectView(R.id.minusContent) TextView minusContent;
+    @InjectView(R.id.comment) TextView commentTextView;
+    CriteresAdapter adapter;
 
     private ImageButton[] disabledType;
     int selected;
@@ -165,11 +175,18 @@ public class RestoDetailsActivity extends ActionBarActivity {
         restoDesc.setText(resto.getDescription());
 
         // Adapter pour la liste des critères :
+        /*listCritere = (ListView) findViewById(R.id.list_critere);
         adapter = new CriteresAdapter(this, resto.getDisabilities().get(selected).getCriterions());
-        listCritere.setAdapter(adapter);
-        //listCritere.setEmptyView(empty);
+        //listCritere.getLayoutParams().height = 115 * adapter.getCount();
+        listCritere.setAdapter(adapter);*/
 
+        //listCritere.setScrollContainer(false);
 
+        //Met à jour les critères :
+        writeCriterion(selected);
+
+        // Mets à jour les commentaires
+        updateComment();
 
         for(int i = 0; i<Utils.idHandicap.size(); i++){
             if(HandiPlaceApplication.user.getDisabilities()[i]) {
@@ -205,6 +222,36 @@ public class RestoDetailsActivity extends ActionBarActivity {
 
     }
 
+    private void updateComment(){
+        String urlComments = Utils .BASE_URL + "api/comments/" + resto.getId() + ".json";
+        StringRequest request = new StringRequest(urlComments, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                try {
+                    JSONArray jsonComments = new JSONArray(s);
+                    String comment = "";
+                    for(int i=0; i < jsonComments.length(); i++) {
+                        JSONObject jsonComment = jsonComments.getJSONObject(i);
+                        comment += jsonComment.getString("content") + "\n\n";
+                    }
+                    commentTextView.setText(comment);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener(){
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(RestoDetailsActivity.this, volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(RestoDetailsActivity.this, new OkHttpStack());
+        queue.add(request);
+    }
+
     @OnClick (R.id.fav)
     public void onClickFav(View view){
         String url = Utils.BASE_URL + "api/favorites/" + HandiPlaceApplication.user.getId() + ".json";
@@ -231,11 +278,29 @@ public class RestoDetailsActivity extends ActionBarActivity {
         });
     }
 
+    private void writeCriterion(int disabledSelected){
+        String strOK = "";
+        String strMauvais = "";
+        for(int i = 0; i < resto.getDisabilities().get(disabledSelected).getCriterions().size(); i++){
+            if(resto.getDisabilities().get(disabledSelected).getCriterions().get(i).isGooOrBad()){
+                strMauvais += resto.getDisabilities().get(disabledSelected).getCriterions().get(i).getName() + "\n\n";
+            }
+            else {
+                strOK += resto.getDisabilities().get(disabledSelected).getCriterions().get(i).getName() + "\n\n";
+            }
+        }
+        minusContent.setText(strMauvais);
+        plusContent.setText(strOK);
+    }
+
     @OnClick (R.id.motor)
     public void onClickMotor(View view){
         disabledType[selected].setBackgroundResource(R.drawable.button_background);
         selected = 0;
         disabledType[0].setBackgroundResource(R.drawable.button_background_selected);
+        //adapter.changeCriterions(resto.getDisabilities().get(selected).getCriterions());
+        //adapter.notifyDataSetChanged();
+        writeCriterion(selected);
     }
 
     @OnClick (R.id.light_motor)
@@ -243,38 +308,52 @@ public class RestoDetailsActivity extends ActionBarActivity {
         disabledType[selected].setBackgroundResource(R.drawable.button_background);
         selected = 1;
         disabledType[1].setBackgroundResource(R.drawable.button_background_selected);
-        adapter.changeCriterions(resto.getDisabilities().get(selected).getCriterions());
+        //adapter.changeCriterions(resto.getDisabilities().get(selected).getCriterions());
+        //adapter.notifyDataSetChanged();
+        writeCriterion(selected);
     }
     @OnClick (R.id.blind)
     public void onClickBlind(View view){
         disabledType[selected].setBackgroundResource(R.drawable.button_background);
         selected = 2;
         disabledType[2].setBackgroundResource(R.drawable.button_background_selected);
+        //adapter.changeCriterions(resto.getDisabilities().get(selected).getCriterions());
+        //adapter.notifyDataSetChanged();
+        writeCriterion(selected);
     }
     @OnClick (R.id.view_problems)
     public void onClickViewProblems(View view){
         disabledType[selected].setBackgroundResource(R.drawable.button_background);
         selected = 3;
         disabledType[3].setBackgroundResource(R.drawable.button_background_selected);
+        //adapter.changeCriterions(resto.getDisabilities().get(selected).getCriterions());
+        //adapter.notifyDataSetChanged();
+        writeCriterion(selected);
     }
     @OnClick (R.id.deaf)
     public void onClickDeaf(View view){
         disabledType[selected].setBackgroundResource(R.drawable.button_background);
         selected = 4;
         disabledType[4].setBackgroundResource(R.drawable.button_background_selected);
+        //adapter.changeCriterions(resto.getDisabilities().get(selected).getCriterions());
+        //adapter.notifyDataSetChanged();
+        writeCriterion(selected);
     }
     @OnClick (R.id.hearing_problems)
     public void onClickHearingProblems(View view){
         disabledType[selected].setBackgroundResource(R.drawable.button_background);
         selected = 5;
         disabledType[5].setBackgroundResource(R.drawable.button_background_selected);
+        //adapter.changeCriterions(resto.getDisabilities().get(selected).getCriterions());
+        //adapter.notifyDataSetChanged();
+        writeCriterion(selected);
     }
 
     @OnClick (R.id.new_comment)
     public void onClickNewComment(){
         Intent intent = new Intent(RestoDetailsActivity.this, CommentActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("resto", resto);
+        intent.putExtra("resto_id", resto.getId());
         startActivity(intent);
     }
 
