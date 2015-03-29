@@ -62,6 +62,7 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
         RestoAdapter adapter = new RestoAdapter(this, restaurants);
         listView.setAdapter(adapter);
         listView.setEmptyView(empty);
+        listView.setOnItemClickListener(this);
 
 
     }
@@ -80,7 +81,7 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
 
                     resto.setId(jsonDetailsResto.getInt("id"));
                     resto.setAddress(jsonDetailsResto.getString("address"));
-                    resto.setCategory(jsonDetailsResto.getString("categorie"));
+                    resto.setCategory(jsonDetailsResto.getString("category"));
 
                     JSONArray criterionArray = jsonDetailsResto.getJSONArray("criterion");
 
@@ -105,14 +106,14 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
                             disObj = disTempArray.getJSONObject(j);
 
                             int id = disObj.getInt("id");
-                            if(!(isAlreadyDis[id].getId() == id)){
+                            //if(isAlreadyDis[id] == null || !(isAlreadyDis[id].getId() == id)){
 
                                 Disability dis = new Disability(id,
                                         disObj.getString("name"),
                                         disObj.getString("description"),
                                         new ArrayList<Criterion>());
                                 isAlreadyDis[id] = dis;
-                            }
+                            //}
 
                             isAlreadyDis[id].getCriterions().add(crit);
                         }
@@ -125,6 +126,7 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
                     resto.setDisabilities(disArray);
 
                     Intent intent = new Intent(RestoListActivity.this, RestoDetailsActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("resto", resto);
                     startActivity(intent);
 
@@ -144,10 +146,5 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
         RequestQueue queue = Volley.newRequestQueue(RestoListActivity.this, new OkHttpStack());
         queue.add(request);
 
-        Intent intent = new Intent(RestoListActivity.this, RestoDetailsActivity.class);
-
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
     }
 }
