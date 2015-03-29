@@ -76,12 +76,43 @@ public class RestoDetailsActivity extends ActionBarActivity {
     int selected;
     Toolbar toolbar;
 
+    private void updateComment(){
+        String urlComments = Utils .BASE_URL + "/api/comments/" + resto.getId() + ".json";
+        StringRequest request = new StringRequest(urlComments, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                try {
+                    JSONArray jsonComments = new JSONArray(s);
+                    comment = "";
+                    for(int i=0; i < jsonComments.length(); i++) {
+                        JSONObject jsonComment = jsonComments.getJSONObject(i);
+                        comment += jsonComment.getString("content") + "\n\n";
+                    }
+                    txtComment.setText(comment);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener(){
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(RestoDetailsActivity.this, volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(RestoDetailsActivity.this, new OkHttpStack());
+        queue.add(request);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resto_details);
 
         ButterKnife.inject(this);
+
         txtComment = (TextView) findViewById(R.id.comment);
         disabledType = new ImageButton[6];
         disabledType[0] = motor;
@@ -190,34 +221,6 @@ public class RestoDetailsActivity extends ActionBarActivity {
                 disabledType[0].setBackgroundResource(R.drawable.button_background_selected);
             }
         }
-
-        String urlComments = Utils .BASE_URL + "/api/comments/" + resto.getId() + ".json";
-        StringRequest request = new StringRequest(urlComments, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String s) {
-                try {
-                    JSONArray jsonComments = new JSONArray(s);
-                    comment = "";
-                    for(int i=0; i < jsonComments.length(); i++) {
-                        JSONObject jsonComment = jsonComments.getJSONObject(i);
-                        comment += jsonComment.getString("content") + "\n\n";
-                    }
-                    txtComment.setText(comment);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener(){
-
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(RestoDetailsActivity.this, volleyError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        RequestQueue queue = Volley.newRequestQueue(RestoDetailsActivity.this, new OkHttpStack());
-        queue.add(request);
     }
 
     @OnClick (R.id.motor)
