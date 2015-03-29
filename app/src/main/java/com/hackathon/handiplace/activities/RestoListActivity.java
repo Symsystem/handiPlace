@@ -76,6 +76,7 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         spinner.setVisibility(View.VISIBLE);
+        Utils.checkConnectionsLocation(this);
 
         final Restaurant resto = restaurants.get(position);
 
