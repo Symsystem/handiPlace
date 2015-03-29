@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -227,6 +226,7 @@ public class DisabledTypeActivity extends ActionBarActivity {
                 catch(JSONException e){
                     e.printStackTrace();
                 }
+                DisabledTypeActivity.this.finish();
 
                 spinner.setVisibility(View.GONE);
 
@@ -238,7 +238,7 @@ public class DisabledTypeActivity extends ActionBarActivity {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 spinner.setVisibility(View.GONE);
-                Toast.makeText(DisabledTypeActivity.this, volleyError.getMessage(), Toast.LENGTH_LONG).show();
+               
             }
         });
 
