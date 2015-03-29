@@ -4,12 +4,16 @@
     android:layout_height="match_parent"
     >
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include layout="@layout/toolbar" android:id="@+id/toolbar"/>
 
     <ImageView
+        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:id="@+id/header_image"
@@ -24,7 +28,7 @@
         android:src="@drawable/favorisavant"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="64dp"
         android:layout_marginRight="16dp"
         android:scaleType="fitCenter"
         android:background="@android:color/transparent"
@@ -64,6 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/resto_desc"
+            android:id="@+id/resto_scroll"
             >
 
             <LinearLayout
@@ -178,7 +183,7 @@
                     <ImageButton
                         android:contentDescription="Malvoyant"
                         android:src="@drawable/nottotallyblind"
-                        android:id="@+id/view_roblems"
+                        android:id="@+id/view_problems"
                         android:layout_width="160dp"
                         android:layout_height="160dp"
                         android:scaleType="fitCenter"
@@ -272,7 +277,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/detail_box"
-            android:layout_below="@id/resto_desc"
+            android:layout_below="@id/resto_scroll"
             android:orientation="vertical"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
@@ -330,6 +335,7 @@
             android:layout_below="@id/detail_box"
             android:text="Ecrire un avis"
             android:textColor="@android:color/white"
+            android:id="@+id/new_comment"
 
             />
 

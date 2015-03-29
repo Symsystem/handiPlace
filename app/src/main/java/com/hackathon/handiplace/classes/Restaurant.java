@@ -14,6 +14,11 @@ public class Restaurant implements Serializable{
     private String imageURL;
     private int rating;
     private double kilometers;
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
     private boolean isFavorite;
     private ArrayList<Disability> disabilities;
 

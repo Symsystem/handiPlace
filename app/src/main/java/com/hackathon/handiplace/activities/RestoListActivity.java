@@ -84,6 +84,7 @@ public class RestoListActivity extends ActionBarActivity implements AdapterView.
                     resto.setCategory(jsonDetailsResto.getString("category"));
                     resto.setFavorite(jsonDetailsResto.getBoolean("isFavorite"));
                     resto.setImageURL(jsonDetailsResto.getString("imgUrl"));
+                    resto.setDescription(jsonDetailsResto.getString("description"));
 
                     JSONArray criterionArray = jsonDetailsResto.getJSONArray("criterion");
 
