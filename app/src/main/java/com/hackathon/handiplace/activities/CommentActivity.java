@@ -35,9 +35,8 @@ public class CommentActivity extends ActionBarActivity {
     private TextView mComment;
     private Button mBackButton;
     private Button mSendButton;
-    private Restaurant resto;
     Toolbar toolbar;
-
+    int idPlace = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class CommentActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        resto = (Restaurant)intent.getSerializableExtra("resto");
+        idPlace = intent.getIntExtra("resto_id",0);
 
         mComment = (TextView) findViewById(R.id.editText);
         mSendButton = (Button) findViewById(R.id.sendButton);
@@ -77,7 +76,7 @@ public class CommentActivity extends ActionBarActivity {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("content", comment);
                     params.put("idUser", HandiPlaceApplication.user.getId() + "");
-                    String URL = Utils.BASE_URL + "api/comments/" + resto.getId() + ".json";
+                    String URL = Utils.BASE_URL + "api/comments/" + idPlace + ".json";
 
                     PostRequest requestAddUser = new PostRequest(URL, params, new Response.Listener<String>() {
                         @Override
