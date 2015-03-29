@@ -100,7 +100,7 @@ public class Utils {
                     // Called when a new location is found by the network location provider.
                     Log.d("bwb", "changed Loc : " + location.getLongitude() + ":" + location.getLatitude());
                     HandiPlaceApplication.currentPosition.setLatitude(location.getLatitude());
-                    HandiPlaceApplication.currentPosition.setLatitude(location.getLongitude());
+                    HandiPlaceApplication.currentPosition.setLongitude(location.getLongitude());
                 }
 
                 public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -125,7 +125,7 @@ public class Utils {
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                     Log.d("bwb", "changed Loc : " + location.getLongitude() + ":" + location.getLatitude());
                     HandiPlaceApplication.currentPosition.setLatitude(location.getLatitude());
-                    HandiPlaceApplication.currentPosition.setLatitude(location.getLongitude());
+                    HandiPlaceApplication.currentPosition.setLongitude(location.getLongitude());
 
                 } else {
                     location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -134,7 +134,7 @@ public class Utils {
                         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
                         Log.d("bwb", "changed Loc : " + location.getLongitude() + ":" + location.getLatitude());
                         HandiPlaceApplication.currentPosition.setLatitude(location.getLatitude());
-                        HandiPlaceApplication.currentPosition.setLatitude(location.getLongitude());
+                        HandiPlaceApplication.currentPosition.setLongitude(location.getLongitude());
                     }
                 }
             }
