@@ -11,10 +11,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.hackathon.handiplace.HandiPlaceApplication;
 import com.hackathon.handiplace.R;
@@ -25,6 +27,7 @@ import com.hackathon.handiplace.request.OkHttpStack;
 import com.hackathon.handiplace.request.PostRequest;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,6 +48,8 @@ public class RestoDetailsActivity extends ActionBarActivity {
 
     private boolean isFav;
     private Restaurant resto;
+    private TextView txtComment;
+    private String comment;
 
     @InjectView(R.id.header_image) ImageView headerImage;
     @InjectView(R.id.fav) ImageButton fav;
@@ -77,7 +82,7 @@ public class RestoDetailsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_resto_details);
 
         ButterKnife.inject(this);
-
+        txtComment = (TextView) findViewById(R.id.comment);
         disabledType = new ImageButton[6];
         disabledType[0] = motor;
         disabledType[1] = lightMotor;
@@ -186,6 +191,33 @@ public class RestoDetailsActivity extends ActionBarActivity {
             }
         }
 
+        String urlComments = Utils .BASE_URL + "/api/comments/" + resto.getId() + ".json";
+        StringRequest request = new StringRequest(urlComments, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                try {
+                    JSONArray jsonComments = new JSONArray(s);
+                    comment = "";
+                    for(int i=0; i < jsonComments.length(); i++) {
+                        JSONObject jsonComment = jsonComments.getJSONObject(i);
+                        comment += jsonComment.getString("content") + "\n\n";
+                    }
+                    txtComment.setText(comment);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener(){
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(RestoDetailsActivity.this, volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(RestoDetailsActivity.this, new OkHttpStack());
+        queue.add(request);
     }
 
     @OnClick (R.id.motor)
@@ -231,7 +263,7 @@ public class RestoDetailsActivity extends ActionBarActivity {
     public void onClickNewComment(){
         Intent intent = new Intent(RestoDetailsActivity.this, CommentActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("resto", resto);
+        intent.putExtra("resto_id", resto.getId());
         startActivity(intent);
     }
 
