@@ -100,6 +100,7 @@
                         android:textSize="24dp"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
+                        android:id="@+id/motor_stars"
                     />
 
                     </LinearLayout>
@@ -115,7 +116,7 @@
                     <ImageButton
                         android:contentDescription="Handicapé moteur léger"
                         android:src="@drawable/nottotallydisabled"
-                        android:id="@+id/lightMotor"
+                        android:id="@+id/light_motor"
                         android:layout_width="160dp"
                         android:layout_height="160dp"
                         android:scaleType="fitCenter"
@@ -131,6 +132,7 @@
                         android:textSize="24dp"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
+                        android:id="@+id/light_motor_stars"
                         />
 
                 </LinearLayout>
@@ -161,6 +163,7 @@
                         android:textSize="24dp"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
+                        android:id="@+id/blind_stars"
                         />
 
                 </LinearLayout>
@@ -175,7 +178,7 @@
                     <ImageButton
                         android:contentDescription="Malvoyant"
                         android:src="@drawable/nottotallyblind"
-                        android:id="@+id/viewProblems"
+                        android:id="@+id/view_roblems"
                         android:layout_width="160dp"
                         android:layout_height="160dp"
                         android:scaleType="fitCenter"
@@ -191,6 +194,7 @@
                         android:textSize="24dp"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
+                        android:id="@+id/view_problems_stars"
                         />
 
                 </LinearLayout>
@@ -221,6 +225,7 @@
                         android:textSize="24dp"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
+                        android:id="@+id/deaf_stars"
                         />
 
                 </LinearLayout>
@@ -252,6 +257,7 @@
                         android:textSize="24dp"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
+                        android:id="@+id/hearing_problems_stars"
                         />
 
                 </LinearLayout>
