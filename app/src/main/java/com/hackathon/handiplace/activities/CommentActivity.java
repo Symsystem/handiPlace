@@ -7,7 +7,8 @@ package com.hackathon.handiplace.activities;
         import android.content.Intent;
         import android.support.v7.app.ActionBarActivity;
         import android.os.Bundle;
-        import android.view.Menu;
+ import android.support.v7.widget.Toolbar;
+ import android.view.Menu;
         import android.view.MenuItem;
         import android.view.View;
         import android.widget.Button;
@@ -19,6 +20,7 @@ package com.hackathon.handiplace.activities;
         import com.android.volley.toolbox.Volley;
         import com.hackathon.handiplace.HandiPlaceApplication;
         import com.hackathon.handiplace.R;
+        import com.hackathon.handiplace.classes.Restaurant;
         import com.hackathon.handiplace.classes.Utils;
         import com.hackathon.handiplace.request.OkHttpStack;
         import com.hackathon.handiplace.request.PostRequest;
@@ -32,18 +34,28 @@ public class CommentActivity extends ActionBarActivity {
 
     private TextView mTextView;
     private Button mButton;
+    private Restaurant resto;
+    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
 
-    mTextView = (TextView) findViewById(R.id.editText);
-    mButton = (Button) findViewById(R.id.button);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    mButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v){
+        Intent intent = getIntent();
+        resto = (Restaurant)intent.getSerializableExtra("resto");
+
+        mTextView = (TextView) findViewById(R.id.editText);
+        mButton = (Button) findViewById(R.id.button);
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
             String comment = mTextView.getText().toString().trim();
             if(comment.isEmpty()) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(CommentActivity.this);
@@ -57,7 +69,7 @@ public class CommentActivity extends ActionBarActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("content", comment);
                 params.put("idUser", HandiPlaceApplication.user.getId() + "");
-                String URL = Utils.BASE_URL + "api/comments/{idPlace}.JSON";
+                String URL = Utils.BASE_URL + "api/comments/" + resto.getId() +".json";
 
                 PostRequest requestAddUser = new PostRequest(URL, params, new Response.Listener<String>() {
                     @Override
@@ -65,15 +77,27 @@ public class CommentActivity extends ActionBarActivity {
                         try{
                             JSONObject userJSON = new JSONObject(s);
                             if (userJSON.has("response")) {
-
                                 if (userJSON.getBoolean("response")) {
-
+                                    Intent intent = new Intent(CommentActivity.this, RestoDetailsActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.putExtra("resto", resto);
+                                    startActivity(intent);
                                 }
                                 else {
-                                    // erreur
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(CommentActivity.this);
+                                    builder.setTitle("Erreur");
+                                    builder.setMessage("Impossible de publier votre commentaire.");
+                                    builder.setPositiveButton(android.R.string.ok, null);
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
                                 }
                             } else {
-                                // erreur
+                                AlertDialog.Builder builder = new AlertDialog.Builder(CommentActivity.this);
+                                builder.setTitle("Erreur");
+                                builder.setMessage("Impossible de publier votre commentaire.");
+                                builder.setPositiveButton(android.R.string.ok, null);
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
                             }
                         }
                         catch(JSONException e){
@@ -90,15 +114,8 @@ public class CommentActivity extends ActionBarActivity {
                 RequestQueue queue = Volley.newRequestQueue(CommentActivity.this, new OkHttpStack());
                 queue.add(requestAddUser);
             }
-            newActivity();
         }
 
     });
-
-
 }
-    private void newActivity(){
-        Intent intent = new Intent(this, MenuActivity.class);
-        startActivity(intent);
-    }
 }

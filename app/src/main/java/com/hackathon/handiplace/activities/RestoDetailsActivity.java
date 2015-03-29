@@ -222,7 +222,7 @@ public class RestoDetailsActivity extends ActionBarActivity {
     public void onClickNewComment(){
         Intent intent = new Intent(RestoDetailsActivity.this, CommentActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("resto_id", resto.getId());
+        intent.putExtra("resto", resto);
         startActivity(intent);
     }
 

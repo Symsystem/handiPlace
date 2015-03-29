@@ -66,7 +66,7 @@ public class InternetActivity extends ActionBarActivity {
         startActivity(intent);*/
         Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setAction(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+        intent.setAction(Settings.ACTION_SETTINGS);
         startActivity(intent);
     }
 

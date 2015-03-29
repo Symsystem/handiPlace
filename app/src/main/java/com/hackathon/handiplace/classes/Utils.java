@@ -152,6 +152,4 @@ public class Utils {
         }
         updateLocation(context);
     }
-
-
 }
